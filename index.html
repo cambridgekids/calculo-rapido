@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cálculo Rápido · Entrenamiento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f7; --paper:#ffffff; --ink:#16223d; --muted:#5c6885;
+  --line:#dde3ef; --primary:#4338ca; --primary-d:#372fb0;
+  --speed:#f59e0b; --ok:#15a06b; --ok-bg:#e6f6ef; --no:#e5484d; --no-bg:#fdecec;
+  --chip:#f1f3fa; --shadow:0 1px 2px rgba(20,34,61,.06),0 8px 30px rgba(20,34,61,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:Inter,system-ui,sans-serif; color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 100% -10%, #e7e9ff 0%, transparent 55%),
+    radial-gradient(900px 500px at -10% 110%, #fef3df 0%, transparent 50%),
+    var(--bg);
+  min-height:100dvh; -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:560px; margin:0 auto; padding:22px 18px 40px; min-height:100dvh; display:flex; flex-direction:column}
+.brand{display:flex; align-items:center; gap:10px; margin-bottom:18px}
+.brand .dot{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#6d63f0);
+  display:grid;place-items:center;color:#fff;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
+.brand h1{font-family:"Space Grotesk",sans-serif; font-size:18px; margin:0; letter-spacing:-.02em}
+.brand small{color:var(--muted); font-size:12.5px; display:block; margin-top:1px}
+.card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:var(--shadow)}
+.label{font-size:12.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 9px}
+.row{margin-bottom:18px}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:14px; font-weight:500; padding:9px 13px; border-radius:11px; border:1.5px solid var(--line);
+  background:var(--chip); color:var(--ink); cursor:pointer; transition:.12s}
+.chip:hover{border-color:#c3cbe0}
+.chip[aria-pressed="true"]{background:var(--primary); border-color:var(--primary); color:#fff}
+.chip.lvl[aria-pressed="true"]{background:var(--ink); border-color:var(--ink)}
+.start{width:100%; margin-top:6px; font:inherit; font-weight:600; font-size:17px; color:#fff;
+  background:var(--primary); border:none; border-radius:14px; padding:16px; cursor:pointer; transition:.12s; box-shadow:0 8px 20px rgba(67,56,202,.28)}
+.start:hover{background:var(--primary-d)}
+.ghost{background:none;border:none;color:var(--primary);font:inherit;font-weight:600;font-size:14px;cursor:pointer;padding:8px}
+.foot{margin-top:auto; padding-top:20px; text-align:center; color:var(--muted); font-size:12px}
+
+/* PLAY */
+.hud{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px}
+.tag{font-size:12px; font-weight:600; padding:5px 10px; border-radius:999px; background:var(--chip); color:var(--muted)}
+.tag b{color:var(--ink)}
+.prog{font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--muted)}
+.timerwrap{display:flex; align-items:baseline; gap:10px; margin-bottom:6px}
+.timer{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:40px; line-height:1; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
+.streak{margin-left:auto; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:15px; color:var(--speed)}
+.bar{height:8px; border-radius:999px; background:var(--line); overflow:hidden; margin:8px 0 22px}
+.bar>i{display:block; height:100%; width:100%; background:var(--ok); transition:width .1s linear, background .3s}
+.q{font-family:"Space Grotesk",sans-serif; font-size:24px; line-height:1.32; font-weight:500; letter-spacing:-.01em; min-height:96px; margin:0 0 18px}
+.answer{display:flex; gap:10px}
+.answer input{flex:1; font:inherit; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:24px;
+  padding:14px 16px; border:1.5px solid var(--line); border-radius:13px; background:#fbfcff; color:var(--ink); width:100%; min-width:0}
+.answer input:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 4px rgba(67,56,202,.12)}
+.answer button{font:inherit; font-weight:600; font-size:16px; color:#fff; background:var(--ink); border:none; border-radius:13px; padding:0 20px; cursor:pointer}
+.fb{margin-top:16px; border-radius:13px; padding:14px 16px; font-size:14.5px; line-height:1.5; display:none}
+.fb.show{display:block; animation:pop .18s ease}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.fb.ok{background:var(--ok-bg)} .fb.no{background:var(--no-bg)}
+.fb .head{font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:15px; margin-bottom:4px; display:flex; align-items:center; gap:7px}
+.fb.ok .head{color:var(--ok)} .fb.no .head{color:var(--no)}
+.fb .sol b{font-family:"JetBrains Mono",monospace}
+.fb .trick{color:var(--muted); margin-top:7px; font-size:13.5px}
+.next{width:100%; margin-top:14px; font:inherit; font-weight:600; font-size:16px; color:#fff; background:var(--primary); border:none; border-radius:13px; padding:14px; cursor:pointer; display:none}
+.next.show{display:block}
+.quit{display:block; margin:14px auto 0; }
+
+/* DONE */
+.score{text-align:center; padding:8px 0 4px}
+.score .big{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:54px; line-height:1; font-variant-numeric:tabular-nums}
+.score .of{color:var(--muted); font-size:16px; font-family:"JetBrains Mono",monospace}
+.score .pct{margin-top:6px; font-weight:600; color:var(--muted)}
+.stats{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0}
+.stat{background:var(--chip); border-radius:13px; padding:13px 14px}
+.stat .n{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:22px}
+.stat .k{font-size:12px; color:var(--muted); margin-top:2px}
+.record{color:var(--speed)}
+.brk{margin-top:6px}
+.brk .label{margin-bottom:10px}
+.frow{display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid var(--line); font-size:14px}
+.frow:first-of-type{border-top:none}
+.frow .fname{flex:1; font-weight:500}
+.frow .fmini{font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--muted)}
+.frow.slow .fname::after{content:" · más lento"; color:var(--no); font-size:12px; font-weight:600}
+.frow .fbar{width:80px; height:6px; border-radius:999px; background:var(--line); overflow:hidden}
+.frow .fbar>i{display:block;height:100%;background:var(--primary)}
+.actions{display:flex; gap:10px; margin-top:20px}
+.actions button{flex:1; font:inherit; font-weight:600; font-size:15px; border-radius:13px; padding:14px; cursor:pointer; border:1.5px solid var(--line); background:var(--paper); color:var(--ink)}
+.actions button.pri{background:var(--primary); border-color:var(--primary); color:#fff}
+
+/* MODAL */
+.modal{position:fixed; inset:0; background:rgba(20,34,61,.45); display:none; align-items:flex-end; justify-content:center; z-index:9; padding:0}
+.modal.show{display:flex}
+.sheet{background:var(--paper); width:100%; max-width:560px; max-height:86dvh; overflow:auto; border-radius:20px 20px 0 0; padding:22px 20px 30px}
+.sheet h2{font-family:"Space Grotesk",sans-serif; font-size:19px; margin:0 0 4px}
+.sheet h3{font-family:"Space Grotesk",sans-serif; font-size:14px; margin:18px 0 6px; color:var(--primary)}
+.sheet p{font-size:14px; line-height:1.55; margin:6px 0; color:var(--ink)}
+.sheet code{font-family:"JetBrains Mono",monospace; background:var(--chip); padding:1px 6px; border-radius:6px; font-size:13px}
+.sheet .close{position:sticky; top:0; float:right; }
+@media(min-width:600px){ .modal{align-items:center} .sheet{border-radius:20px} }
+@media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="dot">×÷</div>
+    <div><h1>Cálculo Rápido</h1><small>Entrena la velocidad, no solo la respuesta</small></div>
+  </div>
+
+  <!-- ===== SETUP ===== -->
+  <section id="setup">
+    <div class="card">
+      <div class="row">
+        <p class="label">Familia</p>
+        <div class="chips" id="famChips"></div>
+      </div>
+      <div class="row">
+        <p class="label">Dificultad</p>
+        <div class="chips" id="lvlChips">
+          <button class="chip lvl" data-lvl="1">Nivel 1</button>
+          <button class="chip lvl" data-lvl="2">Nivel 2</button>
+          <button class="chip lvl" data-lvl="3">Nivel 3</button>
+          <button class="chip lvl" data-lvl="0" aria-pressed="true">Mixta</button>
+        </div>
+      </div>
+      <div class="row">
+        <p class="label">Nº de preguntas</p>
+        <div class="chips" id="qtyChips">
+          <button class="chip" data-qty="10">10</button>
+          <button class="chip" data-qty="20" aria-pressed="true">20</button>
+          <button class="chip" data-qty="30">30</button>
+          <button class="chip" data-qty="50">50</button>
+        </div>
+      </div>
+      <div class="row">
+        <p class="label">Límite por pregunta</p>
+        <div class="chips" id="limChips">
+          <button class="chip" data-lim="0" aria-pressed="true">Sin límite</button>
+          <button class="chip" data-lim="20">20 s</button>
+          <button class="chip" data-lim="30">30 s</button>
+          <button class="chip" data-lim="45">45 s</button>
+        </div>
+      </div>
+      <button class="start" id="startBtn">Empezar</button>
+    </div>
+    <button class="ghost" id="tricksBtn1" style="margin:14px auto 0; display:block">📋 Ver la chuleta de trucos</button>
+  </section>
+
+  <!-- ===== PLAY ===== -->
+  <section id="play" class="hidden">
+    <div class="card">
+      <div class="hud">
+        <span class="tag" id="famTag">—</span>
+        <span class="prog" id="prog">1 / 20</span>
+      </div>
+      <div class="timerwrap">
+        <span class="timer" id="timer">0,0</span>
+        <span class="streak" id="streak"></span>
+      </div>
+      <div class="bar"><i id="barFill"></i></div>
+      <p class="q" id="question">…</p>
+      <div class="answer">
+        <input id="ans" type="text" inputmode="decimal" autocomplete="off" autocorrect="off"
+               spellcheck="false" enterkeyhint="go" placeholder="Tu respuesta">
+        <button id="checkBtn">Comprobar</button>
+      </div>
+      <div class="fb" id="fb"></div>
+      <button class="next" id="nextBtn">Siguiente →</button>
+    </div>
+    <button class="ghost quit" id="quitBtn">Salir</button>
+  </section>
+
+  <!-- ===== DONE ===== -->
+  <section id="done" class="hidden">
+    <div class="card">
+      <div class="score">
+        <div><span class="big" id="dScore">0</span><span class="of" id="dOf"> / 20</span></div>
+        <div class="pct" id="dPct">0% de aciertos</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n" id="dTotal">0,0 s</div><div class="k">Tiempo total</div></div>
+        <div class="stat"><div class="n" id="dAvg">0,0 s</div><div class="k">Media por pregunta</div></div>
+        <div class="stat"><div class="n" id="dStreak">0</div><div class="k">Mejor racha</div></div>
+        <div class="stat"><div class="n" id="dRec">—</div><div class="k">Récord de velocidad</div></div>
+      </div>
+      <div class="brk">
+        <p class="label">Por familias</p>
+        <div id="breakdown"></div>
+      </div>
+      <div class="actions">
+        <button id="againBtn">Repetir</button>
+        <button class="pri" id="homeBtn">Inicio</button>
+      </div>
+    </div>
+    <button class="ghost" id="tricksBtn2" style="margin:14px auto 0; display:block">📋 Ver la chuleta de trucos</button>
+  </section>
+
+  <div class="foot">Cálculo Rápido · entrenamiento de psicotécnicos</div>
+</div>
+
+<!-- ===== MODAL TRUCOS ===== -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <button class="chip close" id="closeModal">Cerrar ✕</button>
+    <h2>Chuleta de trucos</h2>
+    <p style="color:var(--muted)">El orden: <b>1)</b> subraya los números · <b>2)</b> detecta la familia · <b>3)</b> aplica el truco · <b>4)</b> comprueba que tiene sentido.</p>
+
+    <h3>Porcentajes</h3>
+    <p><code>10%</code> quita un cero · <code>25%</code> ÷4 · <code>20%</code> ÷5 · <code>5%</code> mitad del 10% · <code>12,5%</code> ÷8 · <code>75%</code> tres cuartos · <code>⅓ (33,3%)</code> ÷3.</p>
+
+    <h3>Porcentaje perdido</h3>
+    <p>El precio de venta <b>no</b> es el original. Si pierde el 20%, eso es el 80% = 4 partes → <code>venta ÷ 4 × 5</code>. Si pierde el 25% (=75%=3 partes) → <code>venta ÷ 3 × 4</code>.</p>
+
+    <h3>Fracciones</h3>
+    <p>Fracción de un número: <code>÷ denominador × numerador</code>. En trayectos: <b>resta primero las fracciones</b>; esa diferencia es la que vale los km que faltan.</p>
+
+    <h3>Regla de 3 directa</h3>
+    <p>Más = más. <b>Saca primero 1 unidad</b> y luego multiplica. Ej.: 290€ en 5 días → 1 día = 58 → ×18.</p>
+
+    <h3>Regla de 3 inversa</h3>
+    <p>Más obreros/máquinas = <b>menos</b> tiempo. Calcula el trabajo total (<code>obreros × días</code>) y repártelo entre los nuevos obreros.</p>
+
+    <h3>Áreas</h3>
+    <p>Rectángulo <code>b×h</code> · Triángulo <code>b×h÷2</code> · Trapecio <code>(B+b)×h÷2</code>. Con un hueco: <b>área grande − hueco</b>.</p>
+
+    <h3>Docenas</h3>
+    <p>Mira cuántas hay malas en <b>una</b> docena (12 − buenas) y multiplica por el número de docenas.</p>
+
+    <h3>Cajas mínimas</h3>
+    <p>Usa primero las cajas <b>grandes</b>. Demuestra que con menos cajas no llega y busca la combinación exacta.</p>
+
+    <h3>Máquinas / ritmo</h3>
+    <p>Suma el ritmo de todas las máquinas y mira cuántas veces cabe en el total.</p>
+
+    <h3>Tiempo</h3>
+    <p>El primer mes cuenta como pago 1. Si empiezas en un mes y son 12 pagos, terminas el <b>mes anterior</b> al del año siguiente.</p>
+  </div>
+</div>
+
+<script>
+/* ===================== GENERADORES (validados) ===================== */
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[R(0,a.length-1)];
+const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function fmt(n){const neg=n<0;n=Math.abs(n);const[i,d]=n.toString().split('.');const ii=i.replace(/\B(?=(\d{3})+(?!\d))/g,'.');return(neg?'-':'')+(d?ii+','+d:ii);}
+function parseNum(s){s=(s||'').toString().trim().replace(/\s/g,'');if(s==='')return NaN;if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s);}
+function norm(s){return(s||'').toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+
+function gPorcentaje(d){let pct,base,ans,label;
+ if(d===1){[pct,base,ans]=pick([()=>{const n=R(2,20)*10;return[50,n,n/2];},()=>{const n=R(2,20)*10;return[10,n,n/10];},()=>{const n=R(2,15)*4;return[25,n,n/4];}])();}
+ else if(d===2){[pct,base,ans]=pick([()=>{const n=R(2,20)*5;return[20,n,n/5];},()=>{const n=R(2,12)*20;return[5,n,n/20];},()=>{const n=R(2,15)*4;return[75,n,n*3/4];},()=>{const n=R(3,20)*10;return[30,n,n*3/10];}])();}
+ else{[pct,base,ans,label]=pick([()=>{const n=R(2,12)*8;return[12.5,n,n/8];},()=>{const n=R(2,12)*3;return['t',n,n/3,'un tercio (33,3%)'];},()=>{const n=R(2,8)*8;return[37.5,n,n*3/8];},()=>{const n=R(2,8)*8;return[62.5,n,n*5/8];}])();}
+ label=label||(fmt(pct)+'%');return{q:`¿Cuánto es ${label} de ${fmt(base)}?`,a:ans,fam:'porcentajes'};}
+
+function gPctPerdido(d){let O,Y,gain=false;
+ if(d===1){Y=50;O=R(4,40)*2;}else if(d===2){Y=pick([20,25]);O=Y===20?R(4,40)*5:R(4,40)*4;}
+ else{if(R(0,1)){Y=10;O=R(4,40)*10;}else{gain=true;Y=25;O=R(4,40)*4;}}
+ const price=gain?O*(100+Y)/100:O*(100-Y)/100;const verbo=gain?`ganando el ${Y}%`:`perdiendo el ${Y}%`;
+ return{q:`Un artículo se vende por ${fmt(price)} € ${verbo}. ¿Cuál era el precio original, en €?`,a:O,fam:'porcentaje perdido'};}
+
+function gFraccion(d){let n,den;
+ if(d===1)[n,den]=pick([[1,2],[1,4],[1,3],[1,5]]);else if(d===2)[n,den]=pick([[2,5],[3,4],[2,3],[3,10]]);else[n,den]=pick([[3,8],[5,6],[7,10],[5,12]]);
+ const base=den*R(3,18);return{q:`¿Cuánto es ${n}/${den} de ${fmt(base)}?`,a:base*n/den,fam:'fracciones'};}
+
+function gTrayecto(d){const pairs=[[[2,5],[3,4],20],[[1,3],[3,4],12],[[1,4],[2,3],12],[[2,5],[7,10],10],[[1,2],[5,6],6]];
+ const[f1,f2,lcm]=pick(pairs);const mult=d===1?R(1,3):d===2?R(2,6):R(4,12);const T=lcm*mult;
+ const K=Math.round(T*(f2[0]/f2[1]-f1[0]/f1[1]));
+ return{q:`Has recorrido ${f1[0]}/${f1[1]} de un trayecto. Faltan ${fmt(K)} km para llegar a ${f2[0]}/${f2[1]} del trayecto. ¿Cuántos km mide el trayecto entero?`,a:T,fam:'fracciones'};}
+
+function gDirecta(d){const ctx=pick([(A,B,C)=>`Por ${A} días un trabajador gana ${fmt(B)} €. ¿Cuánto gana por ${C} días?`,(A,B,C)=>`${A} kg de fruta cuestan ${fmt(B)} €. ¿Cuánto cuestan ${C} kg?`,(A,B,C)=>`Con ${A} litros se recorren ${fmt(B)} km. ¿Cuántos km con ${C} litros?`]);
+ let unit,A,C;if(d===1){unit=R(2,9);A=R(2,5);do{C=R(2,6);}while(C===A);}else if(d===2){unit=R(3,15);A=R(2,6);C=R(4,12);}else{unit=R(8,30);A=R(2,5);C=R(11,20);}
+ const B=unit*A,ans=unit*C;return{q:ctx(A,B,C),a:ans,fam:'regla de 3 directa'};}
+
+function gInversa(d){let X,dias,W,divisors,Y;
+ do{X=R(2,d===1?4:6);dias=R(4,d===1?12:24);W=X*dias;divisors=[];for(let k=2;k<=W;k++)if(W%k===0&&k!==X)divisors.push(k);}while(divisors.length===0);
+ const pool=divisors.filter(v=>(d===3?true:v<=20));Y=pick(pool.length?pool:divisors);const ans=W/Y;
+ return{q:`${X} obreros tardan ${dias} días en hacer una obra. ¿Cuántos días tardarían ${Y} obreros (al mismo ritmo)?`,a:ans,fam:'regla de 3 inversa'};}
+
+function gArea(d){
+ if(d===1){if(R(0,1)){const b=R(3,20),h=R(3,15);return{q:`Un rectángulo mide ${b} de base y ${h} de altura. ¿Cuál es su área?`,a:b*h,fam:'áreas'};}const l=R(3,20);return{q:`Un cuadrado tiene un lado de ${l}. ¿Cuál es su área?`,a:l*l,fam:'áreas'};}
+ if(d===2){if(R(0,1)){const b=R(3,20),h=R(2,12)*2,a=b*h/2;return{q:`Un triángulo tiene ${b} de base y ${h} de altura. ¿Cuál es su área?`,a,fam:'áreas'};}const B=R(6,20),b=R(2,B-1),h=R(2,10)*2;return{q:`Un trapecio tiene bases de ${B} y ${b}, y una altura de ${h}. ¿Cuál es su área?`,a:(B+b)*h/2,fam:'áreas'};}
+ const b=R(8,24),h=R(6,18),hb=R(2,Math.max(2,b-3)),hh=R(2,Math.max(2,h-3));return{q:`Un rectángulo de ${b}×${h} tiene un hueco rectangular de ${hb}×${hh}. ¿Cuál es el área que queda (sin el hueco)?`,a:b*h-hb*hh,fam:'áreas'};}
+
+function minCajas(sizes,N){const dp=new Array(N+1).fill(Infinity);dp[0]=0;for(let i=1;i<=N;i++)for(const s of sizes)if(i-s>=0&&dp[i-s]+1<dp[i])dp[i]=dp[i-s]+1;return dp[N];}
+function gCajas(d){const sets=[[5,9,10],[3,5,8],[4,6,9],[6,8,12]];let sizes,N,m;
+ do{sizes=pick(sets);const big=Math.max(...sizes);N=big*R(3,d===1?4:6)-R(0,big-1);if(N<big)N=big*2;m=minCajas(sizes,N);}while(!isFinite(m));
+ return{q:`Tienes cajas de ${sizes.join(', ')} unidades. Quieres reunir exactamente ${N} unidades usando las menos cajas posibles. ¿Cuántas cajas necesitas como mínimo?`,a:m,fam:'cajas'};}
+
+function gDocenas(d){const fruta=pick(['naranjas','manzanas','huevos','peras','limones']);const docenas=R(2,d===1?5:9);const N=docenas*12;const buenas=R(6,11);const malas=12-buenas;return{q:`Hay ${N} ${fruta}. De cada docena, ${buenas} están en buen estado. ¿Cuántas están estropeadas en total?`,a:docenas*malas,fam:'docenas'};}
+
+function gMaquinas(d){const rate1=R(2,d===1?6:12)*10;const M=R(2,d===1?3:5);const horas=pick(d===1?[1,2,3]:[1,1.5,2,2.5,3]);const total=rate1*M*horas;const u=pick(['metros','piezas','litros','sobres']);return{q:`Una máquina produce ${fmt(rate1)} ${u} por hora. Con ${M} máquinas iguales, ¿cuántas horas se tarda en producir ${fmt(total)} ${u}?`,a:horas,fam:'máquinas'};}
+
+function gTiempo(d){if(R(0,1)){const start=R(0,11),year=2024+R(0,3);const k=d===1?pick([3,4,6]):d===2?12:pick([10,14,15,18]);const end=(start+k-1)%12;return{q:`Empiezas a pagar en ${MONTHS[start]} de ${year}. Son ${k} pagos mensuales (cuenta el primero). ¿En qué mes haces el último pago? (escribe el mes)`,a:MONTHS[end],fam:'tiempo',expectText:true};}
+ const dia=R(10,28),plazo=d===1?R(8,20):R(20,40);const end=((dia+plazo)-30);if(end<=0||end>30)return gTiempo(d);return{q:`Hoy es día ${dia}. Empieza un plazo de ${plazo} días. ¿Qué día del mes siguiente vence? (los meses son de 30 días)`,a:end,fam:'tiempo'};}
+
+const FAMILIES={'Todas':null,'Porcentajes':gPorcentaje,'Porcentaje perdido':gPctPerdido,'Fracciones':d=>R(0,1)?gFraccion(d):gTrayecto(d),'Regla de 3 directa':gDirecta,'Regla de 3 inversa':gInversa,'Áreas':gArea,'Docenas':gDocenas,'Cajas':gCajas,'Máquinas':gMaquinas,'Tiempo':gTiempo};
+const POOL=[gPorcentaje,gPorcentaje,gPorcentaje,gPctPerdido,gPctPerdido,gFraccion,gFraccion,gTrayecto,gDirecta,gDirecta,gDirecta,gInversa,gInversa,gArea,gArea,gDocenas,gMaquinas,gTiempo,gCajas];
+function generate(fn,dif){const d=dif===0?R(1,3):dif;return(fn||pick(POOL))(d);}
+
+const TRICKS={
+ 'porcentajes':'10% quita un cero · 25% ÷4 · 20% ÷5 · 12,5% ÷8 · ⅓ ÷3.',
+ 'porcentaje perdido':'La venta no es el original. Pierde 20% = 80% = 4 partes → venta ÷4 ×5.',
+ 'fracciones':'Fracción = ÷ denominador × numerador. En trayectos, resta antes las fracciones.',
+ 'regla de 3 directa':'Saca primero 1 unidad y luego multiplica.',
+ 'regla de 3 inversa':'Más obreros = menos días. Trabajo total = obreros × días.',
+ 'áreas':'Triángulo b×h÷2 · Trapecio (B+b)×h÷2 · con hueco: grande − hueco.',
+ 'docenas':'Malas en 1 docena (12 − buenas) × nº de docenas.',
+ 'cajas':'Empieza por las cajas grandes y comprueba que con menos no llega.',
+ 'máquinas':'Suma el ritmo de todas y mira cuántas veces cabe en el total.',
+ 'tiempo':'El primer mes cuenta como pago 1.'
+};
+
+/* ===================== APP ===================== */
+const $=s=>document.querySelector(s);
+const cfg={fam:'Todas',lvl:0,qty:20,lim:0};
+
+// build family chips
+const famNames=Object.keys(FAMILIES);
+const famWrap=$('#famChips');
+famNames.forEach((name,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=name;b.dataset.fam=name;if(name==='Todas')b.setAttribute('aria-pressed','true');famWrap.appendChild(b);});
+
+function wireGroup(sel,key,cast){document.querySelectorAll(sel+' .chip').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll(sel+' .chip').forEach(x=>x.removeAttribute('aria-pressed'));c.setAttribute('aria-pressed','true');cfg[key]=cast(c.dataset[key]);});});}
+wireGroup('#famChips','fam',v=>v);
+wireGroup('#lvlChips','lvl',v=>+v);
+wireGroup('#qtyChips','qty',v=>+v);
+wireGroup('#limChips','lim',v=>+v);
+
+let S=null,raf=null;
+function show(id){['setup','play','done'].forEach(s=>$('#'+s).classList.toggle('hidden',s!==id));}
+
+function startSession(){
+  S={items:[],i:0,correct:0,streak:0,bestStreak:0,qStart:0,perFam:{},timedOut:false};
+  show('play');loadQuestion();
+}
+
+function loadQuestion(){
+  const it=generate(FAMILIES[cfg.fam],cfg.lvl);
+  S.cur=it;S.timedOut=false;
+  $('#famTag').innerHTML='<b>'+it.fam.charAt(0).toUpperCase()+it.fam.slice(1)+'</b>';
+  $('#prog').textContent=(S.i+1)+' / '+cfg.qty;
+  $('#question').textContent=it.q;
+  $('#fb').className='fb';$('#fb').innerHTML='';
+  $('#nextBtn').classList.remove('show');
+  const inp=$('#ans');inp.value='';inp.disabled=false;
+  inp.inputMode=it.expectText?'text':'decimal';
+  inp.placeholder=it.expectText?'Escribe el mes':'Tu respuesta';
+  $('#checkBtn').disabled=false;
+  inp.focus();
+  S.qStart=performance.now();
+  S.streakRef=$('#streak');
+  $('#streak').textContent=S.streak>1?('🔥 '+S.streak):'';
+  startTimer();
+}
+
+function startTimer(){
+  cancelAnimationFrame(raf);
+  const lim=cfg.lim*1000;
+  const tick=()=>{
+    const el=performance.now()-S.qStart;
+    const secs=el/1000;
+    $('#timer').textContent=fmt(Math.round(secs*10)/10).replace(/(\d)$/,'$1');
+    const fill=$('#barFill');
+    if(lim>0){
+      const rem=Math.max(0,1-el/lim);
+      fill.style.width=(rem*100)+'%';
+      fill.style.background=rem>.5?'var(--ok)':rem>.25?'var(--speed)':'var(--no)';
+      if(el>=lim){timeUp();return;}
+    }else{
+      // sin límite: barra sube como "presión" suave hasta 30s
+      const p=Math.min(1,el/30000);
+      fill.style.width='100%';
+      fill.style.background=p<.5?'var(--ok)':p<.8?'var(--speed)':'var(--no)';
+    }
+    raf=requestAnimationFrame(tick);
+  };
+  raf=requestAnimationFrame(tick);
+}
+
+function timeUp(){
+  cancelAnimationFrame(raf);
+  S.timedOut=true;
+  submit(true);
+}
+
+function isCorrect(it,raw){
+  if(it.expectText)return norm(raw)===norm(it.a);
+  const v=parseNum(raw);return isFinite(v)&&Math.abs(v-it.a)<0.01;
+}
+
+function submit(forced){
+  cancelAnimationFrame(raf);
+  const it=S.cur;const raw=$('#ans').value;
+  const elapsed=performance.now()-S.qStart;
+  const ok=!forced&&!S.timedOut&&isCorrect(it,raw);
+  // registrar
+  if(!S.perFam[it.fam])S.perFam[it.fam]={n:0,ok:0,ms:0};
+  const pf=S.perFam[it.fam];pf.n++;pf.ms+=elapsed;if(ok)pf.ok++;
+  if(ok){S.correct++;S.streak++;S.bestStreak=Math.max(S.bestStreak,S.streak);}else{S.streak=0;}
+  S.items.push({fam:it.fam,ok,ms:elapsed});
+  // feedback
+  const fb=$('#fb');fb.className='fb show '+(ok?'ok':'no');
+  const solDisp=it.expectText?it.a:fmt(Math.round(it.a*100)/100);
+  fb.innerHTML=
+    '<div class="head">'+(ok?'✓ ¡Correcto!':(S.timedOut?'⏱ Se acabó el tiempo':'✗ Casi'))+'</div>'+
+    (ok?'':'<div class="sol">Respuesta: <b>'+solDisp+'</b></div>')+
+    '<div class="trick">💡 '+(TRICKS[it.fam]||'')+'</div>';
+  $('#ans').disabled=true;$('#checkBtn').disabled=true;
+  $('#streak').textContent=S.streak>1?('🔥 '+S.streak):'';
+  $('#nextBtn').classList.add('show');$('#nextBtn').focus();
+}
+
+function nextQuestion(){
+  S.i++;
+  if(S.i>=cfg.qty){finish();return;}
+  loadQuestion();
+}
+
+function finish(){
+  cancelAnimationFrame(raf);
+  show('done');
+  const totalMs=S.items.reduce((a,b)=>a+b.ms,0);
+  const avgMs=totalMs/S.items.length;
+  $('#dScore').textContent=S.correct;
+  $('#dOf').textContent=' / '+cfg.qty;
+  $('#dPct').textContent=Math.round(100*S.correct/cfg.qty)+'% de aciertos';
+  $('#dTotal').textContent=fmt(Math.round(totalMs/100)/10)+' s';
+  $('#dAvg').textContent=fmt(Math.round(avgMs/100)/10)+' s';
+  $('#dStreak').textContent=S.bestStreak;
+  // récord (localStorage) por familia+dificultad sobre la media
+  const key='pf_'+cfg.fam+'_'+cfg.lvl;let rec='—',beaten=false;
+  try{
+    const prev=parseFloat(localStorage.getItem(key));
+    if(!isFinite(prev)||avgMs<prev){localStorage.setItem(key,avgMs);beaten=isFinite(prev);}
+    const best=parseFloat(localStorage.getItem(key));
+    rec=fmt(Math.round(best/100)/10)+' s';
+  }catch(e){rec=fmt(Math.round(avgMs/100)/10)+' s';}
+  const recEl=$('#dRec');recEl.textContent=rec;recEl.classList.toggle('record',beaten);
+  if(beaten)recEl.textContent='🏆 '+rec;
+  // desglose
+  const bd=$('#breakdown');bd.innerHTML='';
+  const fams=Object.entries(S.perFam).map(([f,v])=>({f,...v,avg:v.ms/v.n}));
+  const slowest=fams.length>1?fams.reduce((a,b)=>b.avg>a.avg?b:a):null;
+  const maxAvg=Math.max(...fams.map(f=>f.avg),1);
+  fams.sort((a,b)=>b.avg-a.avg).forEach(f=>{
+    const row=document.createElement('div');
+    row.className='frow'+(slowest&&f.f===slowest.f&&f.avg>3000?' slow':'');
+    row.innerHTML=
+      '<span class="fname">'+f.f.charAt(0).toUpperCase()+f.f.slice(1)+'</span>'+
+      '<span class="fmini">'+f.ok+'/'+f.n+' · '+fmt(Math.round(f.avg/100)/10)+'s</span>'+
+      '<span class="fbar"><i style="width:'+(f.avg/maxAvg*100)+'%"></i></span>';
+    bd.appendChild(row);
+  });
+}
+
+/* eventos */
+$('#startBtn').onclick=startSession;
+$('#checkBtn').onclick=()=>submit(false);
+$('#nextBtn').onclick=nextQuestion;
+$('#againBtn').onclick=startSession;
+$('#homeBtn').onclick=()=>show('setup');
+$('#quitBtn').onclick=()=>{cancelAnimationFrame(raf);show('setup');};
+$('#ans').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!$('#ans').disabled)submit(false);}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#nextBtn').classList.contains('show')&&document.activeElement!==$('#ans')){e.preventDefault();nextQuestion();}});
+const modal=$('#modal');
+const openModal=()=>modal.classList.add('show');
+$('#tricksBtn1').onclick=openModal;$('#tricksBtn2').onclick=openModal;
+$('#closeModal').onclick=()=>modal.classList.remove('show');
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+</script>
+</body>
+</html>
