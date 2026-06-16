@@ -221,6 +221,33 @@ body{
     <h3>Porcentaje perdido</h3>
     <p>El precio de venta <b>no</b> es el original. Si pierde el 20%, eso es el 80% = 4 partes → <code>venta ÷ 4 × 5</code>. Si pierde el 25% (=75%=3 partes) → <code>venta ÷ 3 × 4</code>.</p>
 
+    <h3>% que falta por ahorrar</h3>
+    <p>Primero aplica el descuento al PVP → ese es el <b>precio final</b>. Luego <code>(final − lo que tengo) ÷ final × 100</code>. Si tienes justo la mitad, te falta el 50%.</p>
+
+    <h3>Ofertas (3x2, 2x1…)</h3>
+    <p>En <code>3x2</code> pagas 2 de cada 3 → precio <code>× 2/3</code>. En <code>2x1</code> pagas la mitad. En <code>4x3</code> → <code>× 3/4</code>.</p>
+
+    <h3>Comisiones / tasas</h3>
+    <p>Tasa = <b>parte fija + porcentaje</b>. Saca el % de la cantidad y súmale la fija. Ej.: 200 € + 0,5% de 10.000 = 200 + 50 = <code>250 €</code>.</p>
+
+    <h3>Cambio de monedas</h3>
+    <p>Encadena las equivalencias: pasa a la moneda intermedia y de ahí a la final. Normalmente <b>divides</b> en un paso y <b>multiplicas</b> en el otro.</p>
+
+    <h3>Operaciones con un número</h3>
+    <p>Mitad <code>÷2</code> · doble <code>×2</code> · tercera parte <code>÷3</code> · cuarta parte <code>÷4</code>. Resuelve <b>paso a paso</b>, no de golpe.</p>
+
+    <h3>Enteros con signo</h3>
+    <p>Un <code>−</code> delante de un paréntesis cambia el signo de dentro: <code>−(−2) = +2</code>. Suma primero los positivos y los negativos por separado.</p>
+
+    <h3>Ritmo relativo</h3>
+    <p>Calcula cuántas veces lo hace el <b>lento</b> y multiplícalo por las veces más rápido. Ej.: 6 comidas × 1,5 = <code>9</code>.</p>
+
+    <h3>Edades</h3>
+    <p>La <b>diferencia de edad nunca cambia</b>. Plantea <code>padre + t = k × (hijo + t)</code> y despeja los años <code>t</code>.</p>
+
+    <h3>Media aritmética</h3>
+    <p><code>suma de todos ÷ cuántos hay</code>. Para comparar columnas, a veces se ve a ojo cuál tiene un valor mucho mayor.</p>
+
     <h3>Fracciones</h3>
     <p>Fracción de un número: <code>÷ denominador × numerador</code>. En trayectos: <b>resta primero las fracciones</b>; esa diferencia es la que vale los km que faltan.</p>
 
@@ -255,6 +282,9 @@ const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto',
 function fmt(n){const neg=n<0;n=Math.abs(n);const[i,d]=n.toString().split('.');const ii=i.replace(/\B(?=(\d{3})+(?!\d))/g,'.');return(neg?'-':'')+(d?ii+','+d:ii);}
 function parseNum(s){s=(s||'').toString().trim().replace(/\s/g,'');if(s==='')return NaN;if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s);}
 function norm(s){return(s||'').toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;}
+function fracStr(num,den){const g=gcd(num,den);num/=g;den/=g;return den===1?''+num:num+'/'+den;}
+function parseFrac(s){s=(s||'').toString().trim();const m=s.match(/^(-?\d+)\s*\/\s*(\d+)$/);if(m)return parseInt(m[1],10)/parseInt(m[2],10);return parseNum(s);}
 
 function gPorcentaje(d){let pct,base,ans,label;
  if(d===1){[pct,base,ans]=pick([()=>{const n=R(2,20)*10;return[50,n,n/2];},()=>{const n=R(2,20)*10;return[10,n,n/10];},()=>{const n=R(2,15)*4;return[25,n,n/4];}])();}
@@ -303,8 +333,111 @@ function gMaquinas(d){const rate1=R(2,d===1?6:12)*10;const M=R(2,d===1?3:5);cons
 function gTiempo(d){if(R(0,1)){const start=R(0,11),year=2024+R(0,3);const k=d===1?pick([3,4,6]):d===2?12:pick([10,14,15,18]);const end=(start+k-1)%12;return{q:`Empiezas a pagar en ${MONTHS[start]} de ${year}. Son ${k} pagos mensuales (cuenta el primero). ¿En qué mes haces el último pago? (escribe el mes)`,a:MONTHS[end],fam:'tiempo',expectText:true};}
  const dia=R(10,28),plazo=d===1?R(8,20):R(20,40);const end=((dia+plazo)-30);if(end<=0||end>30)return gTiempo(d);return{q:`Hoy es día ${dia}. Empieza un plazo de ${plazo} días. ¿Qué día del mes siguiente vence? (los meses son de 30 días)`,a:end,fam:'tiempo'};}
 
-const FAMILIES={'Todas':null,'Porcentajes':gPorcentaje,'Porcentaje perdido':gPctPerdido,'Fracciones':d=>R(0,1)?gFraccion(d):gTrayecto(d),'Regla de 3 directa':gDirecta,'Regla de 3 inversa':gInversa,'Áreas':gArea,'Docenas':gDocenas,'Cajas':gCajas,'Máquinas':gMaquinas,'Tiempo':gTiempo};
-const POOL=[gPorcentaje,gPorcentaje,gPorcentaje,gPctPerdido,gPctPerdido,gFraccion,gFraccion,gTrayecto,gDirecta,gDirecta,gDirecta,gInversa,gInversa,gArea,gArea,gDocenas,gMaquinas,gTiempo,gCajas];
+/* ---------- NUEVOS (validados desde imágenes FormaApp 2026-06-16) ---------- */
+// Ofertas 3x2 / 2x1: pagas "pay" de cada "get" → precio unitario × pay/get
+function gOfertas(d){
+ const offers=d===1?[[2,1],[3,2]]:d===2?[[3,2],[4,3],[2,1]]:[[3,2],[4,3],[3,1],[5,4]];
+ const[get,pay]=pick(offers);
+ const Pc=get*R(40,200);            // céntimos, múltiplo de get → resultado exacto
+ const unit=Pc/100, ans=Math.round(Pc*pay/get)/100;
+ const prod=pick([['Un tinto de verano de 1,5 L','botella'],['Un refresco','lata'],['Un yogur','unidad'],['Un zumo','botella'],['Una bolsa de patatas','bolsa'],['Un agua de 1 L','botella']]);
+ return{q:`${prod[0]} vale ${fmt(unit)} €. Con la oferta ${get} x ${pay}, cada ${prod[1]} me sale a (en €):`,a:ans,fam:'ofertas'};
+}
+// Comisiones: tasa = parte fija + porcentaje sobre la cantidad
+function gComision(d){
+ const M=(d===1?R(2,9):d===2?R(5,30):R(10,80))*1000;
+ const p=pick(d===1?[0.5,1]:[0.5,1,1.5,2]);
+ const F=pick([100,150,200,250,300]);
+ return{q:`Se admite un giro de ${fmt(M)} € a pagar mediante cheque postal. Las tarifas tienen una percepción fija de ${fmt(F)} € y un ${fmt(p)}% sobre la cantidad girada. ¿Cuánto se cobra en concepto de tasas (en €)?`,a:F+M*p/100,fam:'comisiones'};
+}
+// Cambio de monedas encadenado (dos equivalencias)
+function gMonedas(d){
+ const sets=[
+  {u1:'francos',u2:'libras',u3:'chelines',a1:140,b1:20,a2:11,b2:1100},
+  {u1:'rupias',u2:'dírhams',u3:'céntimos',a1:12,b1:3,a2:5,b2:200},
+  {u1:'pesos',u2:'reales',u3:'escudos',a1:9,b1:3,a2:7,b2:700}
+ ];
+ const s=pick(sets);
+ const g=gcd(s.a1,s.b1),denom1=s.a1/g,num1=s.b1/g,f2=s.b2/s.a2;
+ const m=R(3,d===1?8:16),X=denom1*m,ans=num1*m*f2;
+ return{q:`Cambia ${fmt(X)} ${s.u1} sabiendo que ${s.a1} ${s.u1} equivalen a ${s.b1} ${s.u2}, y ${s.a2} ${s.u2} son ${fmt(s.b2)} ${s.u3}. ¿Cuántos ${s.u3} obtendrá?`,a:ans,fam:'monedas'};
+}
+// % que falta por ahorrar respecto al precio ya rebajado
+function gPctFalta(d){
+ let P,dto,final,frac,T;
+ do{P=R(5,12)*100;dto=pick([10,20,25,40,50]);final=P*(100-dto)/100;frac=pick([0.2,0.25,0.4,0.5,0.6,0.75,0.8]);T=final*(1-frac);}while(!Number.isInteger(final)||!Number.isInteger(T));
+ return{q:`Un portátil tiene un PVP de ${fmt(P)} € con un ${dto}% de descuento. Si ya tengo ${fmt(T)} €, ¿qué % del precio final me falta por ahorrar?`,a:Math.round(frac*100),fam:'porcentajes'};
+}
+// Enteros con signo y paréntesis
+function gSignos(d){
+ const n=d===1?3:4;let val=0,str='';
+ for(let i=0;i<n;i++){
+  const op=i===0?'+':pick(['+','-']);
+  const sign=pick(['+','-']),mag=R(1,d===1?6:9),t=(sign==='+'?1:-1)*mag;
+  val+=(op==='+'?1:-1)*t;
+  str+=(i===0?'':' '+op+' ')+'('+sign+mag+')';
+ }
+ return{q:`Resuelve: ${str}`,a:val,fam:'enteros'};
+}
+// Operaciones encadenadas sobre un número (mitad, doble, tercio, cuarto)
+function gNumeroOps(d){
+ const N=12*R(2,d===1?6:10);
+ const t=pick([
+  ['le sumas su mitad y luego le restas la cuarta parte de su doble', N+N/2-(2*N)/4],
+  ['le sumas su mitad', N+N/2],
+  ['calculas su doble y le restas su mitad', 2*N-N/2],
+  ['le sumas su tercera parte', N+N/3],
+  ['le sumas su mitad y su cuarta parte', N+N/2+N/4],
+  ['le restas su cuarta parte', N-N/4]
+ ]);
+ return{q:`El valor de un número es ${fmt(N)}. Si ${t[0]}, ¿qué número nos queda?`,a:t[1],fam:'operaciones'};
+}
+// Ritmo relativo: "k veces más rápido"
+function gRitmoRelativo(d){
+ let M,H,K,base;
+ do{M=pick([20,30,40,60]);H=pick([2,3,4,6]);base=H*60/M;K=pick([1.5,2,3]);}while(!Number.isInteger(base*K));
+ return{q:`Un padre come cada ${M} minutos. Su hijo come ${fmt(K)} veces más rápido que él. ¿Cuántas comidas hará el hijo en ${H} horas?`,a:base*K,fam:'ritmo'};
+}
+// Parte del trabajo hecha en un tiempo dado (fracción)
+function gParteTrabajo(d){
+ const H=pick([2,3,4]),total=60*H;
+ const den=pick([2,3,4,6,9,12].filter(x=>total%x===0&&total/x>=10));
+ const T=total/den;
+ return{q:`Una secretaria completa un trabajo en ${H} horas. ¿Qué parte del trabajo puede hacer en ${T} minutos? (responde como fracción, p. ej. 1/9)`,a:1/den,fam:'fracciones',frac:true,sol:'1/'+den};
+}
+// Suma / resta de fracciones
+function gSumaFracciones(d){
+ const den=pick(d===1?[2,4]:d===2?[3,4,5,6]:[6,8,10,12]);
+ const op=d===1?'+':pick(['+','-']);
+ let a=R(1,den),b=R(1,den);
+ if(op==='-'){const hi=Math.max(a,b),lo=Math.min(a,b);a=hi;b=lo;if(a===b)a++;}
+ const num=op==='+'?a+b:a-b;
+ return{q:`Resuelve: ${a}/${den} ${op} ${b}/${den}`,a:num/den,fam:'fracciones',frac:true,sol:fracStr(num,den)};
+}
+// Pesos fraccionados menos una pérdida
+function gPesos(d){
+ const kg=v=>{const w=Math.floor(v+1e-9),f=Math.round((v-w)*4)/4,fr={0.25:'1/4',0.5:'1/2',0.75:'3/4'}[f]||'';return (w?(w+(fr?' '+fr:'')):fr)+' kg';};
+ const i1=pick([0.25,0.5,0.75]),i2=R(1,3),i3=R(2,4),sum=i1+i2+i3;
+ const loss=pick([0.25,0.5,0.75,1,1.25].filter(x=>x<sum-0.5));
+ const names=['boquerones','gambas','calamares','sardinas','mejillones'];
+ const n1=names.splice(R(0,names.length-1),1)[0],n2=names.splice(R(0,names.length-1),1)[0],n3=names.splice(R(0,names.length-1),1)[0];
+ return{q:`Felisa compra ${kg(i1)} de ${n1}, ${kg(i2)} de ${n2} y ${kg(i3)} de ${n3}. Al limpiarlo pierde ${kg(loss)}. ¿Cuánto le quedará en limpio (en kg)?`,a:sum-loss,fam:'fracciones'};
+}
+// Edades: cuándo el padre será k veces el hijo
+function gEdades(d){
+ const H=R(8,14),k=pick([3,4,5]),t=R(1,d===1?6:10),P=k*(H+t)-t;
+ const word={3:'triple',4:'cuádruple',5:'quíntuple'}[k];
+ return{q:`Un hijo tiene ${H} años y su padre tiene ${P}. ¿Cuántos años han de pasar para que la edad del padre sea el ${word} que la del hijo?`,a:t,fam:'edades'};
+}
+// Media aritmética
+function gMedia(d){
+ const n=d===1?3:pick([3,4]);let nums,sum;
+ do{nums=[];sum=0;for(let i=0;i<n;i++){const x=R(5,d===1?40:90);nums.push(x);sum+=x;}}while(sum%n!==0);
+ return{q:`¿Cuál es la media aritmética de estos números: ${nums.join(', ')}?`,a:sum/n,fam:'media'};
+}
+
+const FAMILIES={'Todas':null,'Porcentajes':d=>R(0,3)?gPorcentaje(d):gPctFalta(d),'Porcentaje perdido':gPctPerdido,'Ofertas':gOfertas,'Comisiones':gComision,'Monedas':gMonedas,'Fracciones':d=>pick([gFraccion,gTrayecto,gSumaFracciones,gParteTrabajo,gPesos])(d),'Operaciones':gNumeroOps,'Enteros':gSignos,'Regla de 3 directa':gDirecta,'Regla de 3 inversa':gInversa,'Ritmo':gRitmoRelativo,'Edades':gEdades,'Áreas':gArea,'Media':gMedia,'Docenas':gDocenas,'Cajas':gCajas,'Máquinas':gMaquinas,'Tiempo':gTiempo};
+const POOL=[gPorcentaje,gPorcentaje,gPctPerdido,gPctFalta,gOfertas,gComision,gMonedas,gFraccion,gTrayecto,gSumaFracciones,gParteTrabajo,gPesos,gNumeroOps,gSignos,gDirecta,gDirecta,gInversa,gRitmoRelativo,gEdades,gArea,gArea,gMedia,gDocenas,gMaquinas,gTiempo,gCajas];
 function generate(fn,dif){const d=dif===0?R(1,3):dif;return(fn||pick(POOL))(d);}
 
 const TRICKS={
@@ -317,7 +450,15 @@ const TRICKS={
  'docenas':'Malas en 1 docena (12 − buenas) × nº de docenas.',
  'cajas':'Empieza por las cajas grandes y comprueba que con menos no llega.',
  'máquinas':'Suma el ritmo de todas y mira cuántas veces cabe en el total.',
- 'tiempo':'El primer mes cuenta como pago 1.'
+ 'tiempo':'El primer mes cuenta como pago 1.',
+ 'ofertas':'3x2 = pagas 2 de cada 3 → precio ×2/3. 2x1 = la mitad. 4x3 → ×3/4.',
+ 'comisiones':'Tasa = parte fija + porcentaje. Saca el % de la cantidad y súmale la fija.',
+ 'monedas':'Encadena: pasa a la moneda intermedia y de ahí a la final. Divide y luego multiplica.',
+ 'operaciones':'Mitad ÷2 · doble ×2 · tercera parte ÷3 · cuarta parte ÷4. Hazlo por pasos.',
+ 'enteros':'Un signo − delante de un paréntesis cambia el signo de dentro: −(−2)=+2.',
+ 'ritmo':'Cuántas veces el lento × las veces más rápido. Ej.: 6 × 1,5 = 9.',
+ 'edades':'La diferencia de edad nunca cambia. Plantea padre+t = k·(hijo+t).',
+ 'media':'Media = suma de todos ÷ cuántos hay.'
 };
 
 /* ===================== APP ===================== */
@@ -352,8 +493,8 @@ function loadQuestion(){
   $('#fb').className='fb';$('#fb').innerHTML='';
   $('#nextBtn').classList.remove('show');
   const inp=$('#ans');inp.value='';inp.disabled=false;
-  inp.inputMode=it.expectText?'text':'decimal';
-  inp.placeholder=it.expectText?'Escribe el mes':'Tu respuesta';
+  inp.inputMode=(it.expectText||it.frac)?'text':'decimal';
+  inp.placeholder=it.expectText?'Escribe el mes':(it.frac?'Ej. 3/4':'Tu respuesta');
   $('#checkBtn').disabled=false;
   inp.focus();
   S.qStart=performance.now();
@@ -394,7 +535,7 @@ function timeUp(){
 
 function isCorrect(it,raw){
   if(it.expectText)return norm(raw)===norm(it.a);
-  const v=parseNum(raw);return isFinite(v)&&Math.abs(v-it.a)<0.01;
+  const v=it.frac?parseFrac(raw):parseNum(raw);return isFinite(v)&&Math.abs(v-it.a)<0.01;
 }
 
 function submit(forced){
@@ -409,7 +550,7 @@ function submit(forced){
   S.items.push({fam:it.fam,ok,ms:elapsed});
   // feedback
   const fb=$('#fb');fb.className='fb show '+(ok?'ok':'no');
-  const solDisp=it.expectText?it.a:fmt(Math.round(it.a*100)/100);
+  const solDisp=it.expectText?it.a:(it.frac?it.sol:fmt(Math.round(it.a*100)/100));
   fb.innerHTML=
     '<div class="head">'+(ok?'✓ ¡Correcto!':(S.timedOut?'⏱ Se acabó el tiempo':'✗ Casi'))+'</div>'+
     (ok?'':'<div class="sol">Respuesta: <b>'+solDisp+'</b></div>')+
