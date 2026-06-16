@@ -13,54 +13,50 @@
   --line:#dde3ef; --primary:#4338ca; --primary-d:#372fb0;
   --speed:#f59e0b; --ok:#15a06b; --ok-bg:#e6f6ef; --no:#e5484d; --no-bg:#fdecec;
   --chip:#f1f3fa; --shadow:0 1px 2px rgba(20,34,61,.06),0 8px 30px rgba(20,34,61,.07);
+  --r:#e5484d; --g:#e3b341; --b:#3b5bdb; --gr:#2bb24c;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{
-  font-family:Inter,system-ui,sans-serif; color:var(--ink);
-  background:
-    radial-gradient(1200px 600px at 100% -10%, #e7e9ff 0%, transparent 55%),
-    radial-gradient(900px 500px at -10% 110%, #fef3df 0%, transparent 50%),
-    var(--bg);
-  min-height:100dvh; -webkit-tap-highlight-color:transparent;
-}
+body{font-family:Inter,system-ui,sans-serif; color:var(--ink);
+  background:radial-gradient(1200px 600px at 100% -10%, #e7e9ff 0%, transparent 55%),radial-gradient(900px 500px at -10% 110%, #fef3df 0%, transparent 50%),var(--bg);
+  min-height:100dvh; -webkit-tap-highlight-color:transparent;}
 .wrap{max-width:560px; margin:0 auto; padding:22px 18px 40px; min-height:100dvh; display:flex; flex-direction:column}
 .brand{display:flex; align-items:center; gap:10px; margin-bottom:18px}
-.brand .dot{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#6d63f0);
-  display:grid;place-items:center;color:#fff;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
+.brand .dot{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#6d63f0);display:grid;place-items:center;color:#fff;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
 .brand h1{font-family:"Space Grotesk",sans-serif; font-size:18px; margin:0; letter-spacing:-.02em}
 .brand small{color:var(--muted); font-size:12.5px; display:block; margin-top:1px}
 .card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:var(--shadow)}
 .label{font-size:12.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 9px}
 .row{margin-bottom:18px}
 .chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:14px; font-weight:500; padding:9px 13px; border-radius:11px; border:1.5px solid var(--line);
-  background:var(--chip); color:var(--ink); cursor:pointer; transition:.12s}
+.chip{font:inherit; font-size:14px; font-weight:500; padding:9px 13px; border-radius:11px; border:1.5px solid var(--line); background:var(--chip); color:var(--ink); cursor:pointer; transition:.12s}
 .chip:hover{border-color:#c3cbe0}
 .chip[aria-pressed="true"]{background:var(--primary); border-color:var(--primary); color:#fff}
 .chip.lvl[aria-pressed="true"]{background:var(--ink); border-color:var(--ink)}
-.start{width:100%; margin-top:6px; font:inherit; font-weight:600; font-size:17px; color:#fff;
-  background:var(--primary); border:none; border-radius:14px; padding:16px; cursor:pointer; transition:.12s; box-shadow:0 8px 20px rgba(67,56,202,.28)}
+.start{width:100%; margin-top:6px; font:inherit; font-weight:600; font-size:17px; color:#fff; background:var(--primary); border:none; border-radius:14px; padding:16px; cursor:pointer; transition:.12s; box-shadow:0 8px 20px rgba(67,56,202,.28)}
 .start:hover{background:var(--primary-d)}
 .ghost{background:none;border:none;color:var(--primary);font:inherit;font-weight:600;font-size:14px;cursor:pointer;padding:8px}
 .foot{margin-top:auto; padding-top:20px; text-align:center; color:var(--muted); font-size:12px}
-
-/* PLAY */
 .hud{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px}
 .tag{font-size:12px; font-weight:600; padding:5px 10px; border-radius:999px; background:var(--chip); color:var(--muted)}
 .tag b{color:var(--ink)}
 .prog{font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--muted)}
 .timerwrap{display:flex; align-items:baseline; gap:10px; margin-bottom:6px}
-.timer{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:40px; line-height:1; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
+.timer{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:40px; line-height:1; font-variant-numeric:tabular-nums}
 .streak{margin-left:auto; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:15px; color:var(--speed)}
 .bar{height:8px; border-radius:999px; background:var(--line); overflow:hidden; margin:8px 0 22px}
 .bar>i{display:block; height:100%; width:100%; background:var(--ok); transition:width .1s linear, background .3s}
-.q{font-family:"Space Grotesk",sans-serif; font-size:24px; line-height:1.32; font-weight:500; letter-spacing:-.01em; min-height:96px; margin:0 0 18px}
+.q{font-family:"Space Grotesk",sans-serif; font-size:23px; line-height:1.34; font-weight:500; letter-spacing:-.01em; min-height:92px; margin:0 0 18px}
 .answer{display:flex; gap:10px}
-.answer input{flex:1; font:inherit; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:24px;
-  padding:14px 16px; border:1.5px solid var(--line); border-radius:13px; background:#fbfcff; color:var(--ink); width:100%; min-width:0}
+.answer input{flex:1; font:inherit; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:24px; padding:14px 16px; border:1.5px solid var(--line); border-radius:13px; background:#fbfcff; color:var(--ink); width:100%; min-width:0}
 .answer input:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 4px rgba(67,56,202,.12)}
 .answer button{font:inherit; font-weight:600; font-size:16px; color:#fff; background:var(--ink); border:none; border-radius:13px; padding:0 20px; cursor:pointer}
+.mc{display:flex; flex-direction:column; gap:10px}
+.opt{font:inherit; font-weight:700; font-size:18px; color:#fff; border:3px solid transparent; border-radius:13px; padding:15px; cursor:pointer; text-align:center; transition:.1s}
+.opt:nth-child(1){background:var(--r)} .opt:nth-child(2){background:var(--g);color:#3a2d00} .opt:nth-child(3){background:var(--b)} .opt:nth-child(4){background:var(--gr)}
+.opt:disabled{cursor:default; opacity:.95}
+.opt.correct{border-color:#0a7; box-shadow:0 0 0 4px rgba(43,178,76,.3)}
+.opt.wrong{border-color:#900; box-shadow:0 0 0 4px rgba(229,72,77,.3)}
 .fb{margin-top:16px; border-radius:13px; padding:14px 16px; font-size:14.5px; line-height:1.5; display:none}
 .fb.show{display:block; animation:pop .18s ease}
 @keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
@@ -71,9 +67,7 @@ body{
 .fb .trick{color:var(--muted); margin-top:7px; font-size:13.5px}
 .next{width:100%; margin-top:14px; font:inherit; font-weight:600; font-size:16px; color:#fff; background:var(--primary); border:none; border-radius:13px; padding:14px; cursor:pointer; display:none}
 .next.show{display:block}
-.quit{display:block; margin:14px auto 0; }
-
-/* DONE */
+.quit{display:block; margin:14px auto 0}
 .score{text-align:center; padding:8px 0 4px}
 .score .big{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:54px; line-height:1; font-variant-numeric:tabular-nums}
 .score .of{color:var(--muted); font-size:16px; font-family:"JetBrains Mono",monospace}
@@ -82,29 +76,24 @@ body{
 .stat{background:var(--chip); border-radius:13px; padding:13px 14px}
 .stat .n{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:22px}
 .stat .k{font-size:12px; color:var(--muted); margin-top:2px}
-.record{color:var(--speed)}
-.brk{margin-top:6px}
-.brk .label{margin-bottom:10px}
 .frow{display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid var(--line); font-size:14px}
 .frow:first-of-type{border-top:none}
 .frow .fname{flex:1; font-weight:500}
 .frow .fmini{font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--muted)}
 .frow.slow .fname::after{content:" · más lento"; color:var(--no); font-size:12px; font-weight:600}
-.frow .fbar{width:80px; height:6px; border-radius:999px; background:var(--line); overflow:hidden}
+.frow .fbar{width:70px; height:6px; border-radius:999px; background:var(--line); overflow:hidden}
 .frow .fbar>i{display:block;height:100%;background:var(--primary)}
 .actions{display:flex; gap:10px; margin-top:20px}
 .actions button{flex:1; font:inherit; font-weight:600; font-size:15px; border-radius:13px; padding:14px; cursor:pointer; border:1.5px solid var(--line); background:var(--paper); color:var(--ink)}
 .actions button.pri{background:var(--primary); border-color:var(--primary); color:#fff}
-
-/* MODAL */
-.modal{position:fixed; inset:0; background:rgba(20,34,61,.45); display:none; align-items:flex-end; justify-content:center; z-index:9; padding:0}
+.modal{position:fixed; inset:0; background:rgba(20,34,61,.45); display:none; align-items:flex-end; justify-content:center; z-index:9}
 .modal.show{display:flex}
 .sheet{background:var(--paper); width:100%; max-width:560px; max-height:86dvh; overflow:auto; border-radius:20px 20px 0 0; padding:22px 20px 30px}
 .sheet h2{font-family:"Space Grotesk",sans-serif; font-size:19px; margin:0 0 4px}
 .sheet h3{font-family:"Space Grotesk",sans-serif; font-size:14px; margin:18px 0 6px; color:var(--primary)}
-.sheet p{font-size:14px; line-height:1.55; margin:6px 0; color:var(--ink)}
+.sheet p{font-size:14px; line-height:1.55; margin:6px 0}
 .sheet code{font-family:"JetBrains Mono",monospace; background:var(--chip); padding:1px 6px; border-radius:6px; font-size:13px}
-.sheet .close{position:sticky; top:0; float:right; }
+.sheet .close{position:sticky; top:0; float:right}
 @media(min-width:600px){ .modal{align-items:center} .sheet{border-radius:20px} }
 @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
 .hidden{display:none!important}
@@ -112,95 +101,56 @@ body{
 </head>
 <body>
 <div class="wrap">
-  <div class="brand">
-    <div class="dot">×÷</div>
-    <div><h1>Cálculo Rápido</h1><small>Entrena la velocidad, no solo la respuesta</small></div>
-  </div>
+  <div class="brand"><div class="dot">×÷</div><div><h1>Cálculo Rápido</h1><small>Entrena la velocidad, no solo la respuesta</small></div></div>
 
-  <!-- ===== SETUP ===== -->
   <section id="setup">
     <div class="card">
-      <div class="row">
-        <p class="label">Familia</p>
-        <div class="chips" id="famChips"></div>
-      </div>
-      <div class="row">
-        <p class="label">Dificultad</p>
-        <div class="chips" id="lvlChips">
-          <button class="chip lvl" data-lvl="1">Nivel 1</button>
-          <button class="chip lvl" data-lvl="2">Nivel 2</button>
-          <button class="chip lvl" data-lvl="3">Nivel 3</button>
-          <button class="chip lvl" data-lvl="0" aria-pressed="true">Mixta</button>
-        </div>
-      </div>
-      <div class="row">
-        <p class="label">Nº de preguntas</p>
-        <div class="chips" id="qtyChips">
-          <button class="chip" data-qty="10">10</button>
-          <button class="chip" data-qty="20" aria-pressed="true">20</button>
-          <button class="chip" data-qty="30">30</button>
-          <button class="chip" data-qty="50">50</button>
-        </div>
-      </div>
-      <div class="row">
-        <p class="label">Límite por pregunta</p>
-        <div class="chips" id="limChips">
-          <button class="chip" data-lim="0" aria-pressed="true">Sin límite</button>
-          <button class="chip" data-lim="20">20 s</button>
-          <button class="chip" data-lim="30">30 s</button>
-          <button class="chip" data-lim="45">45 s</button>
-        </div>
-      </div>
+      <div class="row"><p class="label">Familia</p><div class="chips" id="famChips"></div></div>
+      <div class="row"><p class="label">Dificultad</p><div class="chips" id="lvlChips">
+        <button class="chip lvl" data-lvl="1">Nivel 1</button><button class="chip lvl" data-lvl="2">Nivel 2</button><button class="chip lvl" data-lvl="3">Nivel 3</button><button class="chip lvl" data-lvl="0" aria-pressed="true">Mixta</button>
+      </div></div>
+      <div class="row"><p class="label">Modo de respuesta</p><div class="chips" id="modeChips">
+        <button class="chip" data-mode="mc" aria-pressed="true">Elegir (4 opciones)</button><button class="chip" data-mode="write">Escribir</button>
+      </div></div>
+      <div class="row"><p class="label">Nº de preguntas</p><div class="chips" id="qtyChips">
+        <button class="chip" data-qty="10">10</button><button class="chip" data-qty="20" aria-pressed="true">20</button><button class="chip" data-qty="30">30</button><button class="chip" data-qty="50">50</button>
+      </div></div>
+      <div class="row"><p class="label">Límite por pregunta</p><div class="chips" id="limChips">
+        <button class="chip" data-lim="0" aria-pressed="true">Sin límite</button><button class="chip" data-lim="20">20 s</button><button class="chip" data-lim="30">30 s</button><button class="chip" data-lim="45">45 s</button>
+      </div></div>
       <button class="start" id="startBtn">Empezar</button>
     </div>
     <button class="ghost" id="tricksBtn1" style="margin:14px auto 0; display:block">📋 Ver la chuleta de trucos</button>
   </section>
 
-  <!-- ===== PLAY ===== -->
   <section id="play" class="hidden">
     <div class="card">
-      <div class="hud">
-        <span class="tag" id="famTag">—</span>
-        <span class="prog" id="prog">1 / 20</span>
-      </div>
-      <div class="timerwrap">
-        <span class="timer" id="timer">0,0</span>
-        <span class="streak" id="streak"></span>
-      </div>
+      <div class="hud"><span class="tag" id="famTag">—</span><span class="prog" id="prog">1 / 20</span></div>
+      <div class="timerwrap"><span class="timer" id="timer">0,0</span><span class="streak" id="streak"></span></div>
       <div class="bar"><i id="barFill"></i></div>
       <p class="q" id="question">…</p>
-      <div class="answer">
-        <input id="ans" type="text" inputmode="decimal" autocomplete="off" autocorrect="off"
-               spellcheck="false" enterkeyhint="go" placeholder="Tu respuesta">
+      <div class="answer" id="writeBox">
+        <input id="ans" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="Tu respuesta">
         <button id="checkBtn">Comprobar</button>
       </div>
+      <div class="mc hidden" id="mcBox"></div>
       <div class="fb" id="fb"></div>
       <button class="next" id="nextBtn">Siguiente →</button>
     </div>
     <button class="ghost quit" id="quitBtn">Salir</button>
   </section>
 
-  <!-- ===== DONE ===== -->
   <section id="done" class="hidden">
     <div class="card">
-      <div class="score">
-        <div><span class="big" id="dScore">0</span><span class="of" id="dOf"> / 20</span></div>
-        <div class="pct" id="dPct">0% de aciertos</div>
-      </div>
+      <div class="score"><div><span class="big" id="dScore">0</span><span class="of" id="dOf"> / 20</span></div><div class="pct" id="dPct">0%</div></div>
       <div class="stats">
         <div class="stat"><div class="n" id="dTotal">0,0 s</div><div class="k">Tiempo total</div></div>
         <div class="stat"><div class="n" id="dAvg">0,0 s</div><div class="k">Media por pregunta</div></div>
         <div class="stat"><div class="n" id="dStreak">0</div><div class="k">Mejor racha</div></div>
         <div class="stat"><div class="n" id="dRec">—</div><div class="k">Récord de velocidad</div></div>
       </div>
-      <div class="brk">
-        <p class="label">Por familias</p>
-        <div id="breakdown"></div>
-      </div>
-      <div class="actions">
-        <button id="againBtn">Repetir</button>
-        <button class="pri" id="homeBtn">Inicio</button>
-      </div>
+      <div class="brk"><p class="label">Por familias</p><div id="breakdown"></div></div>
+      <div class="actions"><button id="againBtn">Repetir</button><button class="pri" id="homeBtn">Inicio</button></div>
     </div>
     <button class="ghost" id="tricksBtn2" style="margin:14px auto 0; display:block">📋 Ver la chuleta de trucos</button>
   </section>
@@ -208,415 +158,209 @@ body{
   <div class="foot">Cálculo Rápido · entrenamiento de psicotécnicos</div>
 </div>
 
-<!-- ===== MODAL TRUCOS ===== -->
 <div class="modal" id="modal">
   <div class="sheet">
     <button class="chip close" id="closeModal">Cerrar ✕</button>
     <h2>Chuleta de trucos</h2>
-    <p style="color:var(--muted)">El orden: <b>1)</b> subraya los números · <b>2)</b> detecta la familia · <b>3)</b> aplica el truco · <b>4)</b> comprueba que tiene sentido.</p>
-
-    <h3>Porcentajes</h3>
-    <p><code>10%</code> quita un cero · <code>25%</code> ÷4 · <code>20%</code> ÷5 · <code>5%</code> mitad del 10% · <code>12,5%</code> ÷8 · <code>75%</code> tres cuartos · <code>⅓ (33,3%)</code> ÷3.</p>
-
-    <h3>Porcentaje perdido</h3>
-    <p>El precio de venta <b>no</b> es el original. Si pierde el 20%, eso es el 80% = 4 partes → <code>venta ÷ 4 × 5</code>. Si pierde el 25% (=75%=3 partes) → <code>venta ÷ 3 × 4</code>.</p>
-
-    <h3>% que falta por ahorrar</h3>
-    <p>Primero aplica el descuento al PVP → ese es el <b>precio final</b>. Luego <code>(final − lo que tengo) ÷ final × 100</code>. Si tienes justo la mitad, te falta el 50%.</p>
-
-    <h3>Ofertas (3x2, 2x1…)</h3>
-    <p>En <code>3x2</code> pagas 2 de cada 3 → precio <code>× 2/3</code>. En <code>2x1</code> pagas la mitad. En <code>4x3</code> → <code>× 3/4</code>.</p>
-
-    <h3>Comisiones / tasas</h3>
-    <p>Tasa = <b>parte fija + porcentaje</b>. Saca el % de la cantidad y súmale la fija. Ej.: 200 € + 0,5% de 10.000 = 200 + 50 = <code>250 €</code>.</p>
-
-    <h3>Cambio de monedas</h3>
-    <p>Encadena las equivalencias: pasa a la moneda intermedia y de ahí a la final. Normalmente <b>divides</b> en un paso y <b>multiplicas</b> en el otro.</p>
-
-    <h3>Operaciones con un número</h3>
-    <p>Mitad <code>÷2</code> · doble <code>×2</code> · tercera parte <code>÷3</code> · cuarta parte <code>÷4</code>. Resuelve <b>paso a paso</b>, no de golpe.</p>
-
-    <h3>Enteros con signo</h3>
-    <p>Un <code>−</code> delante de un paréntesis cambia el signo de dentro: <code>−(−2) = +2</code>. Suma primero los positivos y los negativos por separado.</p>
-
-    <h3>Ritmo relativo</h3>
-    <p>Calcula cuántas veces lo hace el <b>lento</b> y multiplícalo por las veces más rápido. Ej.: 6 comidas × 1,5 = <code>9</code>.</p>
-
-    <h3>Edades</h3>
-    <p>La <b>diferencia de edad nunca cambia</b>. Plantea <code>padre + t = k × (hijo + t)</code> y despeja los años <code>t</code>.</p>
-
-    <h3>Media aritmética</h3>
-    <p><code>suma de todos ÷ cuántos hay</code>. Para comparar columnas, a veces se ve a ojo cuál tiene un valor mucho mayor.</p>
-
+    <p style="color:var(--muted)"><b>1)</b> subraya los números · <b>2)</b> detecta la familia · <b>3)</b> aplica el truco · <b>4)</b> comprueba que tiene sentido.</p>
+    <h3>Porcentajes</h3><p><code>10%</code> quita un cero · <code>25%</code> ÷4 · <code>20%</code> ÷5 · <code>5%</code> ÷20 · <code>12,5%</code> ÷8 · <code>⅓</code> ÷3.</p>
+    <h3>Descuentos y ofertas</h3>
+    <p><b>Oferta NxM</b> (3x2): precio <code>× M ÷ N</code>. En 3x2 → <code>×2 ÷3</code>; en 2x1 → la mitad.</p>
+    <p><b>Descuento</b>: 20% dto = <code>×0,8</code> (precio − 20%). Lo que te falta = precio final − lo ahorrado.</p>
+    <p><b>Tasa fija + %</b>: suma la parte fija + el porcentaje (<code>0,5%</code>=÷200 · <code>1%</code>=÷100).</p>
+    <h3>Porcentaje perdido</h3><p>La venta no es el original. Pierde 20% = 80% = 4 partes → <code>venta ÷4 ×5</code>.</p>
     <h3>Fracciones</h3>
-    <p>Fracción de un número: <code>÷ denominador × numerador</code>. En trayectos: <b>resta primero las fracciones</b>; esa diferencia es la que vale los km que faltan.</p>
-
-    <h3>Regla de 3 directa</h3>
-    <p>Más = más. <b>Saca primero 1 unidad</b> y luego multiplica. Ej.: 290€ en 5 días → 1 día = 58 → ×18.</p>
-
-    <h3>Regla de 3 inversa</h3>
-    <p>Más obreros/máquinas = <b>menos</b> tiempo. Calcula el trabajo total (<code>obreros × días</code>) y repártelo entre los nuevos obreros.</p>
-
-    <h3>Áreas</h3>
-    <p>Rectángulo <code>b×h</code> · Triángulo <code>b×h÷2</code> · Trapecio <code>(B+b)×h÷2</code>. Con un hueco: <b>área grande − hueco</b>.</p>
-
-    <h3>Docenas</h3>
-    <p>Mira cuántas hay malas en <b>una</b> docena (12 − buenas) y multiplica por el número de docenas.</p>
-
-    <h3>Cajas mínimas</h3>
-    <p>Usa primero las cajas <b>grandes</b>. Demuestra que con menos cajas no llega y busca la combinación exacta.</p>
-
-    <h3>Máquinas / ritmo</h3>
-    <p>Suma el ritmo de todas las máquinas y mira cuántas veces cabe en el total.</p>
-
-    <h3>Tiempo</h3>
-    <p>El primer mes cuenta como pago 1. Si empiezas en un mes y son 12 pagos, terminas el <b>mes anterior</b> al del año siguiente.</p>
+    <p>Fracción de un número: <code>÷ denominador × numerador</code>.</p>
+    <p><b>Sumar/restar</b>: mismo denominador → suma arriba. Distinto → en cruz: <code>a/b ± c/d = (a·d ± c·b)/(b·d)</code>.</p>
+    <p><b>Compra y pierde</b>: pasa todo a kilos (cuarto 0,25 · medio 0,5 · tres cuartos 0,75) y resta la pérdida.</p>
+    <h3>Partes de un número</h3><p>mitad ÷2 · doble ×2 · triple ×3 · tercio ÷3 · cuarta parte ÷4. Calcula cada parte y suma o resta.</p>
+    <h3>Operaciones con signos</h3><p>El <code>−</code> delante de un paréntesis cambia el signo de dentro: <code>−(−2)=+2</code>. Junta los + por un lado y los − por otro.</p>
+    <h3>Regla de 3</h3>
+    <p><b>Directa</b> (más = más): saca primero 1 unidad y multiplica.</p>
+    <p><b>Inversa</b> (más obreros = menos días): trabajo total = obreros × días, y repártelo.</p>
+    <p><b>Conversión encadenada</b>: ve flecha a flecha, saca el factor de cada una (÷ o ×) y encadénalos.</p>
+    <h3>Edades</h3><p>Plantea: <code>padre + t = k·(hijo + t)</code> y despeja. Atajo: <code>t = (padre − k·hijo) ÷ (k−1)</code>.</p>
+    <h3>Media aritmética</h3><p>Suma todos y divide entre cuántos hay. Para comparar columnas: un valor muy alto suele ganar a ojo.</p>
+    <h3>Ritmo y velocidad</h3><p>¿Cuántas veces en ese tiempo? <code>horas×60 ÷ minutos</code>. Luego multiplica por las "veces más rápido".</p>
+    <h3>Áreas</h3><p>Rectángulo <code>b×h</code> · Triángulo <code>b×h÷2</code> · Trapecio <code>(B+b)×h÷2</code> · Rombo <code>D×d÷2</code>. Con hueco: grande − hueco. Si te dan el área y un lado, divide para sacar el otro.</p>
+    <h3>Docenas</h3><p>Malas en 1 docena (12 − buenas) × nº de docenas.</p>
+    <h3>Cajas mínimas</h3><p>Empieza por las grandes y comprueba que con menos no llega.</p>
+    <h3>Tiempo</h3><p>El primer mes cuenta como pago 1. 12 pagos desde un mes → terminas el mes anterior del año siguiente.</p>
   </div>
 </div>
 
 <script>
-/* ===================== GENERADORES (validados) ===================== */
+/* ====== GENERADORES v2 (validados) ====== */
 const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
 const pick=a=>a[R(0,a.length-1)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const r2=x=>Math.round(x*100)/100;
+const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;};
 const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function fmt(n){const neg=n<0;n=Math.abs(n);const[i,d]=n.toString().split('.');const ii=i.replace(/\B(?=(\d{3})+(?!\d))/g,'.');return(neg?'-':'')+(d?ii+','+d:ii);}
-function parseNum(s){s=(s||'').toString().trim().replace(/\s/g,'');if(s==='')return NaN;if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s);}
+function parseVal(s){s=(s||'').toString().trim().replace(/\s/g,'');if(s==='')return NaN;
+ if(/^-?\d+\/\d+$/.test(s)){const[p,q]=s.split('/').map(Number);return q?p/q:NaN;}
+ if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s))s=s.replace(/\./g,'').replace(',','.');else s=s.replace(',','.');return parseFloat(s);}
 function norm(s){return(s||'').toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
-function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;}
-function fracStr(num,den){const g=gcd(num,den);num/=g;den/=g;return den===1?''+num:num+'/'+den;}
-function parseFrac(s){s=(s||'').toString().trim();const m=s.match(/^(-?\d+)\s*\/\s*(\d+)$/);if(m)return parseInt(m[1],10)/parseInt(m[2],10);return parseNum(s);}
+function fracStr(p,q){const g=gcd(p,q);p/=g;q/=g;return q===1?''+p:p+'/'+q;}
 
 function gPorcentaje(d){let pct,base,ans,label;
  if(d===1){[pct,base,ans]=pick([()=>{const n=R(2,20)*10;return[50,n,n/2];},()=>{const n=R(2,20)*10;return[10,n,n/10];},()=>{const n=R(2,15)*4;return[25,n,n/4];}])();}
  else if(d===2){[pct,base,ans]=pick([()=>{const n=R(2,20)*5;return[20,n,n/5];},()=>{const n=R(2,12)*20;return[5,n,n/20];},()=>{const n=R(2,15)*4;return[75,n,n*3/4];},()=>{const n=R(3,20)*10;return[30,n,n*3/10];}])();}
  else{[pct,base,ans,label]=pick([()=>{const n=R(2,12)*8;return[12.5,n,n/8];},()=>{const n=R(2,12)*3;return['t',n,n/3,'un tercio (33,3%)'];},()=>{const n=R(2,8)*8;return[37.5,n,n*3/8];},()=>{const n=R(2,8)*8;return[62.5,n,n*5/8];}])();}
  label=label||(fmt(pct)+'%');return{q:`¿Cuánto es ${label} de ${fmt(base)}?`,a:ans,fam:'porcentajes'};}
-
 function gPctPerdido(d){let O,Y,gain=false;
- if(d===1){Y=50;O=R(4,40)*2;}else if(d===2){Y=pick([20,25]);O=Y===20?R(4,40)*5:R(4,40)*4;}
- else{if(R(0,1)){Y=10;O=R(4,40)*10;}else{gain=true;Y=25;O=R(4,40)*4;}}
+ if(d===1){Y=50;O=R(4,40)*2;}else if(d===2){Y=pick([20,25]);O=Y===20?R(4,40)*5:R(4,40)*4;}else{if(R(0,1)){Y=10;O=R(4,40)*10;}else{gain=true;Y=25;O=R(4,40)*4;}}
  const price=gain?O*(100+Y)/100:O*(100-Y)/100;const verbo=gain?`ganando el ${Y}%`:`perdiendo el ${Y}%`;
- return{q:`Un artículo se vende por ${fmt(price)} € ${verbo}. ¿Cuál era el precio original, en €?`,a:O,fam:'porcentaje perdido'};}
-
-function gFraccion(d){let n,den;
- if(d===1)[n,den]=pick([[1,2],[1,4],[1,3],[1,5]]);else if(d===2)[n,den]=pick([[2,5],[3,4],[2,3],[3,10]]);else[n,den]=pick([[3,8],[5,6],[7,10],[5,12]]);
+ return{q:`Un artículo se vende por ${fmt(price)} € ${verbo}. ¿Cuál era el precio original, en €?`,a:O,fam:'descuentos'};}
+function gFraccion(d){let n,den;if(d===1)[n,den]=pick([[1,2],[1,4],[1,3],[1,5]]);else if(d===2)[n,den]=pick([[2,5],[3,4],[2,3],[3,10]]);else[n,den]=pick([[3,8],[5,6],[7,10],[5,12]]);
  const base=den*R(3,18);return{q:`¿Cuánto es ${n}/${den} de ${fmt(base)}?`,a:base*n/den,fam:'fracciones'};}
-
-function gTrayecto(d){const pairs=[[[2,5],[3,4],20],[[1,3],[3,4],12],[[1,4],[2,3],12],[[2,5],[7,10],10],[[1,2],[5,6],6]];
- const[f1,f2,lcm]=pick(pairs);const mult=d===1?R(1,3):d===2?R(2,6):R(4,12);const T=lcm*mult;
- const K=Math.round(T*(f2[0]/f2[1]-f1[0]/f1[1]));
- return{q:`Has recorrido ${f1[0]}/${f1[1]} de un trayecto. Faltan ${fmt(K)} km para llegar a ${f2[0]}/${f2[1]} del trayecto. ¿Cuántos km mide el trayecto entero?`,a:T,fam:'fracciones'};}
-
+function gTrayecto(d){const pairs=[[[2,5],[3,4],20],[[1,3],[3,4],12],[[1,4],[2,3],12],[[2,5],[7,10],10],[[1,2],[5,6],6]];const[f1,f2,lcm]=pick(pairs);const mult=d===1?R(1,3):d===2?R(2,6):R(4,12);const T=lcm*mult;const K=Math.round(T*(f2[0]/f2[1]-f1[0]/f1[1]));
+ return{q:`Has recorrido ${f1[0]}/${f1[1]} de un trayecto. Faltan ${fmt(K)} km para llegar a ${f2[0]}/${f2[1]}. ¿Cuántos km mide el trayecto entero?`,a:T,fam:'fracciones'};}
 function gDirecta(d){const ctx=pick([(A,B,C)=>`Por ${A} días un trabajador gana ${fmt(B)} €. ¿Cuánto gana por ${C} días?`,(A,B,C)=>`${A} kg de fruta cuestan ${fmt(B)} €. ¿Cuánto cuestan ${C} kg?`,(A,B,C)=>`Con ${A} litros se recorren ${fmt(B)} km. ¿Cuántos km con ${C} litros?`]);
  let unit,A,C;if(d===1){unit=R(2,9);A=R(2,5);do{C=R(2,6);}while(C===A);}else if(d===2){unit=R(3,15);A=R(2,6);C=R(4,12);}else{unit=R(8,30);A=R(2,5);C=R(11,20);}
- const B=unit*A,ans=unit*C;return{q:ctx(A,B,C),a:ans,fam:'regla de 3 directa'};}
-
-function gInversa(d){let X,dias,W,divisors,Y;
- do{X=R(2,d===1?4:6);dias=R(4,d===1?12:24);W=X*dias;divisors=[];for(let k=2;k<=W;k++)if(W%k===0&&k!==X)divisors.push(k);}while(divisors.length===0);
- const pool=divisors.filter(v=>(d===3?true:v<=20));Y=pick(pool.length?pool:divisors);const ans=W/Y;
- return{q:`${X} obreros tardan ${dias} días en hacer una obra. ¿Cuántos días tardarían ${Y} obreros (al mismo ritmo)?`,a:ans,fam:'regla de 3 inversa'};}
-
-function gArea(d){
- if(d===1){if(R(0,1)){const b=R(3,20),h=R(3,15);return{q:`Un rectángulo mide ${b} de base y ${h} de altura. ¿Cuál es su área?`,a:b*h,fam:'áreas'};}const l=R(3,20);return{q:`Un cuadrado tiene un lado de ${l}. ¿Cuál es su área?`,a:l*l,fam:'áreas'};}
- if(d===2){if(R(0,1)){const b=R(3,20),h=R(2,12)*2,a=b*h/2;return{q:`Un triángulo tiene ${b} de base y ${h} de altura. ¿Cuál es su área?`,a,fam:'áreas'};}const B=R(6,20),b=R(2,B-1),h=R(2,10)*2;return{q:`Un trapecio tiene bases de ${B} y ${b}, y una altura de ${h}. ¿Cuál es su área?`,a:(B+b)*h/2,fam:'áreas'};}
- const b=R(8,24),h=R(6,18),hb=R(2,Math.max(2,b-3)),hh=R(2,Math.max(2,h-3));return{q:`Un rectángulo de ${b}×${h} tiene un hueco rectangular de ${hb}×${hh}. ¿Cuál es el área que queda (sin el hueco)?`,a:b*h-hb*hh,fam:'áreas'};}
-
+ return{q:ctx(A,unit*A,C),a:unit*C,fam:'regla de 3'};}
+function gInversa(d){let X,dias,W,divisors,Y;do{X=R(2,d===1?4:6);dias=R(4,d===1?12:24);W=X*dias;divisors=[];for(let k=2;k<=W;k++)if(W%k===0&&k!==X)divisors.push(k);}while(divisors.length===0);
+ const pool=divisors.filter(v=>(d===3?true:v<=20));Y=pick(pool.length?pool:divisors);return{q:`${X} obreros tardan ${dias} días en hacer una obra. ¿Cuántos días tardarían ${Y} obreros (al mismo ritmo)?`,a:W/Y,fam:'regla de 3'};}
+function gArea(d){const k=R(1,d===1?2:d===2?4:6);
+ if(k===1){const b=R(3,20),h=R(3,15);return{q:`Un rectángulo mide ${b} de base y ${h} de altura. ¿Cuál es su área?`,a:b*h,fam:'áreas'};}
+ if(k===2){const l=R(3,20);return{q:`Un cuadrado tiene un lado de ${l}. ¿Cuál es su área?`,a:l*l,fam:'áreas'};}
+ if(k===3){const b=R(3,20),h=R(2,12)*2;return{q:`Un triángulo tiene ${b} de base y ${h} de altura. ¿Cuál es su área?`,a:b*h/2,fam:'áreas'};}
+ if(k===4){const D=R(3,16),dd=R(2,12)*2;return{q:`Un rombo tiene diagonales de ${D} y ${dd}. ¿Cuál es su área?`,a:D*dd/2,fam:'áreas'};}
+ if(k===5){const b=R(3,15),h=R(2,9);return{q:`Un rectángulo tiene ${b} de base y un área de ${b*h}. ¿Cuánto mide su altura?`,a:h,fam:'áreas'};}
+ const B=R(6,20),b=R(2,B-1),h=R(2,10)*2;return{q:`Un trapecio tiene bases de ${B} y ${b}, y altura ${h}. ¿Cuál es su área?`,a:(B+b)*h/2,fam:'áreas'};}
 function minCajas(sizes,N){const dp=new Array(N+1).fill(Infinity);dp[0]=0;for(let i=1;i<=N;i++)for(const s of sizes)if(i-s>=0&&dp[i-s]+1<dp[i])dp[i]=dp[i-s]+1;return dp[N];}
-function gCajas(d){const sets=[[5,9,10],[3,5,8],[4,6,9],[6,8,12]];let sizes,N,m;
- do{sizes=pick(sets);const big=Math.max(...sizes);N=big*R(3,d===1?4:6)-R(0,big-1);if(N<big)N=big*2;m=minCajas(sizes,N);}while(!isFinite(m));
- return{q:`Tienes cajas de ${sizes.join(', ')} unidades. Quieres reunir exactamente ${N} unidades usando las menos cajas posibles. ¿Cuántas cajas necesitas como mínimo?`,a:m,fam:'cajas'};}
+function gCajas(d){const sets=[[5,9,10],[3,5,8],[4,6,9],[6,8,12]];let sizes,N,m;do{sizes=pick(sets);const big=Math.max(...sizes);N=big*R(3,d===1?4:6)-R(0,big-1);if(N<big)N=big*2;m=minCajas(sizes,N);}while(!isFinite(m));
+ return{q:`Tienes cajas de ${sizes.join(', ')} unidades. Quieres reunir exactamente ${N} unidades con las menos cajas posibles. ¿Cuántas cajas necesitas?`,a:m,fam:'cajas'};}
+function gDocenas(d){const fruta=pick(['naranjas','manzanas','huevos','peras','limones']);const docenas=R(2,d===1?5:9);const N=docenas*12;const buenas=R(6,11);return{q:`Hay ${N} ${fruta}. De cada docena, ${buenas} están buenas. ¿Cuántas están estropeadas en total?`,a:docenas*(12-buenas),fam:'docenas'};}
+function gTiempo(d){if(R(0,1)){const start=R(0,11),year=2024+R(0,3);const k=d===1?pick([3,4,6]):d===2?12:pick([10,14,15,18]);const end=(start+k-1)%12;return{q:`Empiezas a pagar en ${MONTHS[start]} de ${year}. Son ${k} pagos mensuales (cuenta el primero). ¿En qué mes haces el último pago?`,a:MONTHS[end],fam:'tiempo',kind:'text'};}
+ const dia=R(10,28),plazo=d===1?R(8,20):R(20,40);const end=((dia+plazo)-30);if(end<=0||end>30)return gTiempo(d);return{q:`Hoy es día ${dia}. Empieza un plazo de ${plazo} días. ¿Qué día del mes siguiente vence? (meses de 30 días)`,a:end,fam:'tiempo'};}
+function gOferta(d){const prods=['agua','refresco','leche','zumo','cerveza','batido'];const N=d===1?2:pick([3,3,4]);const M=N-1;const k=d===3?R(33,499)/100:pick([50,75,90,120,150,180,99,60])/100;const P=r2(N*k),ans=r2(M*k);
+ return{q:`Una botella de ${pick(prods)} cuesta ${fmt(P)} €. Con la oferta ${N}x${M} (pagas ${M} y te llevas ${N}), ¿a cuánto te sale cada botella?`,a:ans,fam:'descuentos',aDisp:fmt(ans)+' €'};}
+function gTasa(d){const Q=pick([1000,2000,4000,5000,8000,10000]);const p=pick(d===1?[1,2]:[0.5,1,1.5,2]);const F=R(2,20)*10;const ans=r2(F+Q*p/100);
+ return{q:`Un giro de ${fmt(Q)} € tiene una tasa fija de ${F} € más el ${fmt(p)}% de la cantidad. ¿Cuánto se paga de tasas en total, en €?`,a:ans,fam:'descuentos',aDisp:fmt(ans)+' €'};}
+function gFalta(d){const F=R(5,30)*20;const P=r2(F*1.25);const frac=pick([[1,4],[1,2],[3,4],[2,5],[3,5]]);const have=r2(F*frac[0]/frac[1]);
+ if(R(0,1)){const ans=r2((1-frac[0]/frac[1])*100);return{q:`Un portátil cuesta ${fmt(P)} € con un 20% de descuento. Tienes ahorrados ${fmt(have)} €. ¿Qué porcentaje del precio final te falta por ahorrar?`,a:ans,fam:'descuentos',aDisp:fmt(ans)+'%'};}
+ const ans=r2(F-have);return{q:`Un portátil cuesta ${fmt(P)} € con un 20% de descuento. Tienes ahorrados ${fmt(have)} €. ¿Cuántos € te faltan para comprarlo?`,a:ans,fam:'descuentos',aDisp:fmt(ans)+' €'};}
+function gSignos(d){const n=d===1?3:d===2?4:5;const mag=d===3?12:9;let expr='',ans;const first=(R(0,1)?1:-1)*R(1,mag);ans=first;expr=`(${first>=0?'+':'−'}${Math.abs(first)})`;
+ for(let i=1;i<n;i++){const op=pick(['+','−']);const t=(R(0,1)?1:-1)*R(1,mag);if(op==='+')ans+=t;else ans-=t;expr+=` ${op} (${t>=0?'+':'−'}${Math.abs(t)})`;}
+ return{q:`Resuelve: ${expr}`,a:ans,fam:'signos'};}
+function gPartes(d){const N=R(2,d===1?6:10)*12;const ops=[['su mitad',N/2],['su doble',2*N],['su triple',3*N],['un tercio',N/3],['la cuarta parte',N/4],['la cuarta parte de su doble',N/2],['su mismo valor',N]];
+ const nOps=d===1?1:2;let txt=`El valor de un número es ${N}.`,ans=N,used=[];
+ for(let i=0;i<nOps;i++){const sign=R(0,1)?1:-1;let o;do{o=pick(ops);}while(used.includes(o[0]));used.push(o[0]);ans+=sign*o[1];txt+=` ${i===0?'Si':'y'} le ${sign>0?'sumo':'resto'} ${o[0]}`;}
+ txt+=', ¿qué número queda?';return{q:txt,a:ans,fam:'partes'};}
+function gSumaFrac(d){let d1,d2;if(d===1){d1=pick([4,6,8]);d2=d1;}else if(d===2){d1=pick([2,3,4]);d2=pick([6,8,12]);}else{[d1,d2]=shuffle([pick([3,4,5]),pick([4,6,8])]);}
+ let n1=R(1,d1-1),n2=R(1,d2-1),op=pick(['+','−']);if(op==='−'&&n1/d1<=n2/d2){[d1,d2,n1,n2]=[d2,d1,n2,n1];if(n1/d1<=n2/d2)op='+';}
+ const den=d1*d2;let p=op==='+'?n1*d2+n2*d1:n1*d2-n2*d1;return{q:`Resuelve: ${n1}/${d1} ${op} ${n2}/${d2}`,a:p/den,fam:'fracciones',kind:'frac',aDisp:fracStr(p,den)};}
+const QW={0.25:'un cuarto de kilo',0.5:'medio kilo',0.75:'tres cuartos de kilo',1:'un kilo',1.25:'un kilo y cuarto',1.5:'kilo y medio',2:'dos kilos',3:'tres kilos'};
+function gMezcla(d){const buyOpts=[0.25,0.5,0.75,1,1.5,2,3];const lossOpts=[0.25,0.5,0.75,1,1.25,1.5];const nb=d===1?2:3;const prods=['boquerones','calamares','gambas','sardinas','mejillones','pulpo'];
+ let buys=[],sum=0;const usedP=shuffle(prods);for(let i=0;i<nb;i++){const q=pick(buyOpts);buys.push([q,usedP[i]]);sum=r2(sum+q);}
+ let loss;do{loss=pick(lossOpts);}while(loss>=sum);const ans=r2(sum-loss);const compra=buys.map(b=>`${QW[b[0]]} de ${b[1]}`).join(', ');
+ return{q:`En la pescadería compra ${compra}. Al limpiarlo pierde ${QW[loss]}. ¿Cuántos kg le quedan limpios?`,a:ans,fam:'fracciones',aDisp:fmt(ans)+' kg'};}
+function gEdades(d){const h=R(5,14),k=d===1?2:pick([2,3,4]),t=R(1,d===1?8:15);const p=k*h+(k-1)*t;if(p>90)return gEdades(d);const kw={2:'doble',3:'triple',4:'cuádruple'}[k];
+ return{q:`Un hijo tiene ${h} años y su padre ${p}. ¿Cuántos años han de pasar para que el padre tenga el ${kw} de la edad del hijo?`,a:t,fam:'edades'};}
+function gMedia(d){const n=d===1?3:d===2?3:R(4,5);const m=R(5,40);let nums,tries=0;
+ do{nums=[];let sum=0;for(let i=0;i<n-1;i++){const x=R(Math.max(1,m-12),m+12);nums.push(x);sum+=x;}nums.push(n*m-sum);tries++;}while((nums[n-1]<1||nums[n-1]>m+30)&&tries<50);
+ return{q:`¿Cuál es la media aritmética de estos números: ${nums.join(', ')}?`,a:m,fam:'media'};}
+function gConversion(d){const chains=[['francos','libras','chelines'],['pesos','dólares','euros'],['rupias','dólares','yenes'],['coronas','euros','dólares']];const[U1,U2,U3]=pick(chains);
+ const p=pick([2,4,5,7]),B1=pick([10,20,30]),A1=p*B1;const A2=pick([5,10,11]),c=pick([10,100,1000]),B2=c*A2;const x=p*R(2,9),ans=(x/p)*c;
+ return{q:`${A1} ${U1} equivalen a ${B1} ${U2}, y ${A2} ${U2} equivalen a ${fmt(B2)} ${U3}. ¿A cuántos ${U3} equivalen ${x} ${U1}?`,a:ans,fam:'conversión'};}
+function gRitmo(d){const H=pick([2,3,4,5]);const divs=[20,30,40,45,60,90].filter(t=>(H*60)%t===0);const t=pick(divs);const base=H*60/t;let f=pick([1.5,2,3]);if(f===1.5&&base%2!==0)f=pick([2,3]);
+ return{q:`Una persona hace una tarea cada ${t} minutos. Otra la hace ${fmt(f)} veces más rápido. ¿Cuántas tareas hará la segunda en ${H} horas?`,a:base*f,fam:'ritmo'};}
+function gMaquinas(d){const rate1=R(2,d===1?6:12)*10;const M=R(2,d===1?3:5);const horas=pick(d===1?[1,2,3]:[1,1.5,2,2.5,3]);const u=pick(['metros','piezas','litros','sobres']);return{q:`Una máquina produce ${fmt(rate1)} ${u} por hora. Con ${M} máquinas iguales, ¿cuántas horas se tarda en producir ${fmt(rate1*M*horas)} ${u}?`,a:horas,fam:'ritmo'};}
 
-function gDocenas(d){const fruta=pick(['naranjas','manzanas','huevos','peras','limones']);const docenas=R(2,d===1?5:9);const N=docenas*12;const buenas=R(6,11);const malas=12-buenas;return{q:`Hay ${N} ${fruta}. De cada docena, ${buenas} están en buen estado. ¿Cuántas están estropeadas en total?`,a:docenas*malas,fam:'docenas'};}
+const FAM={'Todas':null,'Porcentajes':[gPorcentaje],'Descuentos y ofertas':[gOferta,gFalta,gTasa,gPctPerdido],'Fracciones':[gFraccion,gSumaFrac,gMezcla,gTrayecto],'Regla de 3':[gDirecta,gInversa,gConversion],'Partes de un número':[gPartes],'Operaciones con signos':[gSignos],'Edades':[gEdades],'Media aritmética':[gMedia],'Ritmo y velocidad':[gRitmo,gMaquinas],'Áreas':[gArea],'Docenas':[gDocenas],'Cajas':[gCajas],'Tiempo':[gTiempo]};
+const POOL=[gPorcentaje,gPorcentaje,gOferta,gFalta,gTasa,gPctPerdido,gFraccion,gFraccion,gSumaFrac,gMezcla,gTrayecto,gDirecta,gDirecta,gInversa,gConversion,gPartes,gPartes,gSignos,gSignos,gEdades,gMedia,gRitmo,gMaquinas,gArea,gArea,gDocenas,gCajas,gTiempo];
+function generate(list,dif){const d=dif===0?R(1,3):dif;const fn=list?pick(list):pick(POOL);return fn(d);}
 
-function gMaquinas(d){const rate1=R(2,d===1?6:12)*10;const M=R(2,d===1?3:5);const horas=pick(d===1?[1,2,3]:[1,1.5,2,2.5,3]);const total=rate1*M*horas;const u=pick(['metros','piezas','litros','sobres']);return{q:`Una máquina produce ${fmt(rate1)} ${u} por hora. Con ${M} máquinas iguales, ¿cuántas horas se tarda en producir ${fmt(total)} ${u}?`,a:horas,fam:'máquinas'};}
+function makeOptions(it){const kind=it.kind||'num';
+ if(kind==='text'){const wrong=shuffle(MONTHS.filter(m=>m!==it.a)).slice(0,3);return shuffle([{label:it.a,ok:true},...wrong.map(m=>({label:m,ok:false}))]);}
+ if(kind==='frac'){const seen=new Set([r2(it.a)]);const out=[];const cand=[it.a+1/R(2,6),it.a-1/R(2,6),it.a*2,it.a/2,it.a+0.5,it.a-0.5,it.a+0.25];
+  for(const c of shuffle(cand)){const v=r2(c);if(v>0&&!seen.has(v)){seen.add(v);out.push(v);}if(out.length===3)break;}let g=2;while(out.length<3){const v=r2(it.a+g*0.25);if(v>0&&!seen.has(v)){seen.add(v);out.push(v);}g++;}
+  const toStr=v=>{for(let q=2;q<=12;q++){const p=Math.round(v*q);if(Math.abs(p/q-v)<1e-6)return fracStr(p,q);}return fmt(v);};
+  return shuffle([{label:it.aDisp||toStr(it.a),ok:true},...out.map(v=>({label:toStr(v),ok:false}))]);}
+ const a=it.a;const seen=new Set([r2(a)]);const out=[];const step=Math.abs(a)>=50?10:Math.abs(a)>=10?5:1;
+ const cand=[a+step,a-step,a*2,a/2,a+Math.max(1,Math.round(Math.abs(a)*0.1)),a-Math.max(1,Math.round(Math.abs(a)*0.1)),a+2*step];
+ for(const c of shuffle(cand)){const v=r2(c);if(!seen.has(v)){seen.add(v);out.push(v);}if(out.length===3)break;}let g=2;while(out.length<3){const v=r2(a+g*step);if(!seen.has(v)){seen.add(v);out.push(v);}g++;}
+ const suf=it.aDisp&&it.aDisp.includes('€')?' €':it.aDisp&&it.aDisp.includes('%')?'%':it.aDisp&&it.aDisp.includes('kg')?' kg':'';
+ const lab=v=>fmt(v)+suf;return shuffle([{label:lab(a),ok:true},...out.map(v=>({label:lab(v),ok:false}))]);}
 
-function gTiempo(d){if(R(0,1)){const start=R(0,11),year=2024+R(0,3);const k=d===1?pick([3,4,6]):d===2?12:pick([10,14,15,18]);const end=(start+k-1)%12;return{q:`Empiezas a pagar en ${MONTHS[start]} de ${year}. Son ${k} pagos mensuales (cuenta el primero). ¿En qué mes haces el último pago? (escribe el mes)`,a:MONTHS[end],fam:'tiempo',expectText:true};}
- const dia=R(10,28),plazo=d===1?R(8,20):R(20,40);const end=((dia+plazo)-30);if(end<=0||end>30)return gTiempo(d);return{q:`Hoy es día ${dia}. Empieza un plazo de ${plazo} días. ¿Qué día del mes siguiente vence? (los meses son de 30 días)`,a:end,fam:'tiempo'};}
+const TRICKS={'porcentajes':'10% quita un cero · 25% ÷4 · 20% ÷5 · 12,5% ÷8.','descuentos':'Oferta 3x2 → ×2 ÷3. Descuento 20% = ×0,8. Tasa: fija + (0,5%=÷200, 1%=÷100).','fracciones':'÷ denominador × numerador. Sumar en cruz: (a·d±c·b)/(b·d).','regla de 3':'Directa: saca 1 unidad y multiplica. Conversión: factor por factor.','partes':'mitad ÷2 · doble ×2 · tercio ÷3 · cuarta parte ÷4. Calcula y suma/resta.','signos':'−(−2)=+2. Junta los + por un lado y los − por otro.','edades':'t = (padre − k·hijo) ÷ (k−1).','media':'Suma todos y divide entre cuántos hay.','conversión':'Flecha a flecha: el factor de cada una (÷ o ×) y encadénalos.','ritmo':'horas×60 ÷ minutos, y multiplica por las veces más rápido.','áreas':'Triángulo b×h÷2 · Rombo D×d÷2 · con hueco: grande − hueco.','docenas':'Malas en 1 docena (12−buenas) × nº de docenas.','cajas':'Empieza por las grandes; comprueba que con menos no llega.','tiempo':'El primer mes cuenta como pago 1.'};
 
-/* ---------- NUEVOS (validados desde imágenes FormaApp 2026-06-16) ---------- */
-// Ofertas 3x2 / 2x1: pagas "pay" de cada "get" → precio unitario × pay/get
-function gOfertas(d){
- const offers=d===1?[[2,1],[3,2]]:d===2?[[3,2],[4,3],[2,1]]:[[3,2],[4,3],[3,1],[5,4]];
- const[get,pay]=pick(offers);
- const Pc=get*R(40,200);            // céntimos, múltiplo de get → resultado exacto
- const unit=Pc/100, ans=Math.round(Pc*pay/get)/100;
- const prod=pick([['Un tinto de verano de 1,5 L','botella'],['Un refresco','lata'],['Un yogur','unidad'],['Un zumo','botella'],['Una bolsa de patatas','bolsa'],['Un agua de 1 L','botella']]);
- return{q:`${prod[0]} vale ${fmt(unit)} €. Con la oferta ${get} x ${pay}, cada ${prod[1]} me sale a (en €):`,a:ans,fam:'ofertas'};
-}
-// Comisiones: tasa = parte fija + porcentaje sobre la cantidad
-function gComision(d){
- const M=(d===1?R(2,9):d===2?R(5,30):R(10,80))*1000;
- const p=pick(d===1?[0.5,1]:[0.5,1,1.5,2]);
- const F=pick([100,150,200,250,300]);
- return{q:`Se admite un giro de ${fmt(M)} € a pagar mediante cheque postal. Las tarifas tienen una percepción fija de ${fmt(F)} € y un ${fmt(p)}% sobre la cantidad girada. ¿Cuánto se cobra en concepto de tasas (en €)?`,a:F+M*p/100,fam:'comisiones'};
-}
-// Cambio de monedas encadenado (dos equivalencias)
-function gMonedas(d){
- const sets=[
-  {u1:'francos',u2:'libras',u3:'chelines',a1:140,b1:20,a2:11,b2:1100},
-  {u1:'rupias',u2:'dírhams',u3:'céntimos',a1:12,b1:3,a2:5,b2:200},
-  {u1:'pesos',u2:'reales',u3:'escudos',a1:9,b1:3,a2:7,b2:700}
- ];
- const s=pick(sets);
- const g=gcd(s.a1,s.b1),denom1=s.a1/g,num1=s.b1/g,f2=s.b2/s.a2;
- const m=R(3,d===1?8:16),X=denom1*m,ans=num1*m*f2;
- return{q:`Cambia ${fmt(X)} ${s.u1} sabiendo que ${s.a1} ${s.u1} equivalen a ${s.b1} ${s.u2}, y ${s.a2} ${s.u2} son ${fmt(s.b2)} ${s.u3}. ¿Cuántos ${s.u3} obtendrá?`,a:ans,fam:'monedas'};
-}
-// % que falta por ahorrar respecto al precio ya rebajado
-function gPctFalta(d){
- let P,dto,final,frac,T;
- do{P=R(5,12)*100;dto=pick([10,20,25,40,50]);final=P*(100-dto)/100;frac=pick([0.2,0.25,0.4,0.5,0.6,0.75,0.8]);T=final*(1-frac);}while(!Number.isInteger(final)||!Number.isInteger(T));
- return{q:`Un portátil tiene un PVP de ${fmt(P)} € con un ${dto}% de descuento. Si ya tengo ${fmt(T)} €, ¿qué % del precio final me falta por ahorrar?`,a:Math.round(frac*100),fam:'porcentajes'};
-}
-// Enteros con signo y paréntesis
-function gSignos(d){
- const n=d===1?3:4;let val=0,str='';
- for(let i=0;i<n;i++){
-  const op=i===0?'+':pick(['+','-']);
-  const sign=pick(['+','-']),mag=R(1,d===1?6:9),t=(sign==='+'?1:-1)*mag;
-  val+=(op==='+'?1:-1)*t;
-  str+=(i===0?'':' '+op+' ')+'('+sign+mag+')';
- }
- return{q:`Resuelve: ${str}`,a:val,fam:'enteros'};
-}
-// Operaciones encadenadas sobre un número (mitad, doble, tercio, cuarto)
-function gNumeroOps(d){
- const N=12*R(2,d===1?6:10);
- const t=pick([
-  ['le sumas su mitad y luego le restas la cuarta parte de su doble', N+N/2-(2*N)/4],
-  ['le sumas su mitad', N+N/2],
-  ['calculas su doble y le restas su mitad', 2*N-N/2],
-  ['le sumas su tercera parte', N+N/3],
-  ['le sumas su mitad y su cuarta parte', N+N/2+N/4],
-  ['le restas su cuarta parte', N-N/4]
- ]);
- return{q:`El valor de un número es ${fmt(N)}. Si ${t[0]}, ¿qué número nos queda?`,a:t[1],fam:'operaciones'};
-}
-// Ritmo relativo: "k veces más rápido"
-function gRitmoRelativo(d){
- let M,H,K,base;
- do{M=pick([20,30,40,60]);H=pick([2,3,4,6]);base=H*60/M;K=pick([1.5,2,3]);}while(!Number.isInteger(base*K));
- return{q:`Un padre come cada ${M} minutos. Su hijo come ${fmt(K)} veces más rápido que él. ¿Cuántas comidas hará el hijo en ${H} horas?`,a:base*K,fam:'ritmo'};
-}
-// Parte del trabajo hecha en un tiempo dado (fracción)
-function gParteTrabajo(d){
- const H=pick([2,3,4]),total=60*H;
- const den=pick([2,3,4,6,9,12].filter(x=>total%x===0&&total/x>=10));
- const T=total/den;
- return{q:`Una secretaria completa un trabajo en ${H} horas. ¿Qué parte del trabajo puede hacer en ${T} minutos? (responde como fracción, p. ej. 1/9)`,a:1/den,fam:'fracciones',frac:true,sol:'1/'+den};
-}
-// Suma / resta de fracciones
-function gSumaFracciones(d){
- const den=pick(d===1?[2,4]:d===2?[3,4,5,6]:[6,8,10,12]);
- const op=d===1?'+':pick(['+','-']);
- let a=R(1,den),b=R(1,den);
- if(op==='-'){const hi=Math.max(a,b),lo=Math.min(a,b);a=hi;b=lo;if(a===b)a++;}
- const num=op==='+'?a+b:a-b;
- return{q:`Resuelve: ${a}/${den} ${op} ${b}/${den}`,a:num/den,fam:'fracciones',frac:true,sol:fracStr(num,den)};
-}
-// Pesos fraccionados menos una pérdida
-function gPesos(d){
- const kg=v=>{const w=Math.floor(v+1e-9),f=Math.round((v-w)*4)/4,fr={0.25:'1/4',0.5:'1/2',0.75:'3/4'}[f]||'';return (w?(w+(fr?' '+fr:'')):fr)+' kg';};
- const i1=pick([0.25,0.5,0.75]),i2=R(1,3),i3=R(2,4),sum=i1+i2+i3;
- const loss=pick([0.25,0.5,0.75,1,1.25].filter(x=>x<sum-0.5));
- const names=['boquerones','gambas','calamares','sardinas','mejillones'];
- const n1=names.splice(R(0,names.length-1),1)[0],n2=names.splice(R(0,names.length-1),1)[0],n3=names.splice(R(0,names.length-1),1)[0];
- return{q:`Felisa compra ${kg(i1)} de ${n1}, ${kg(i2)} de ${n2} y ${kg(i3)} de ${n3}. Al limpiarlo pierde ${kg(loss)}. ¿Cuánto le quedará en limpio (en kg)?`,a:sum-loss,fam:'fracciones'};
-}
-// Edades: cuándo el padre será k veces el hijo
-function gEdades(d){
- const H=R(8,14),k=pick([3,4,5]),t=R(1,d===1?6:10),P=k*(H+t)-t;
- const word={3:'triple',4:'cuádruple',5:'quíntuple'}[k];
- return{q:`Un hijo tiene ${H} años y su padre tiene ${P}. ¿Cuántos años han de pasar para que la edad del padre sea el ${word} que la del hijo?`,a:t,fam:'edades'};
-}
-// Media aritmética
-function gMedia(d){
- const n=d===1?3:pick([3,4]);let nums,sum;
- do{nums=[];sum=0;for(let i=0;i<n;i++){const x=R(5,d===1?40:90);nums.push(x);sum+=x;}}while(sum%n!==0);
- return{q:`¿Cuál es la media aritmética de estos números: ${nums.join(', ')}?`,a:sum/n,fam:'media'};
-}
-
-const FAMILIES={'Todas':null,'Porcentajes':d=>R(0,3)?gPorcentaje(d):gPctFalta(d),'Porcentaje perdido':gPctPerdido,'Ofertas':gOfertas,'Comisiones':gComision,'Monedas':gMonedas,'Fracciones':d=>pick([gFraccion,gTrayecto,gSumaFracciones,gParteTrabajo,gPesos])(d),'Operaciones':gNumeroOps,'Enteros':gSignos,'Regla de 3 directa':gDirecta,'Regla de 3 inversa':gInversa,'Ritmo':gRitmoRelativo,'Edades':gEdades,'Áreas':gArea,'Media':gMedia,'Docenas':gDocenas,'Cajas':gCajas,'Máquinas':gMaquinas,'Tiempo':gTiempo};
-const POOL=[gPorcentaje,gPorcentaje,gPctPerdido,gPctFalta,gOfertas,gComision,gMonedas,gFraccion,gTrayecto,gSumaFracciones,gParteTrabajo,gPesos,gNumeroOps,gSignos,gDirecta,gDirecta,gInversa,gRitmoRelativo,gEdades,gArea,gArea,gMedia,gDocenas,gMaquinas,gTiempo,gCajas];
-function generate(fn,dif){const d=dif===0?R(1,3):dif;return(fn||pick(POOL))(d);}
-
-const TRICKS={
- 'porcentajes':'10% quita un cero · 25% ÷4 · 20% ÷5 · 12,5% ÷8 · ⅓ ÷3.',
- 'porcentaje perdido':'La venta no es el original. Pierde 20% = 80% = 4 partes → venta ÷4 ×5.',
- 'fracciones':'Fracción = ÷ denominador × numerador. En trayectos, resta antes las fracciones.',
- 'regla de 3 directa':'Saca primero 1 unidad y luego multiplica.',
- 'regla de 3 inversa':'Más obreros = menos días. Trabajo total = obreros × días.',
- 'áreas':'Triángulo b×h÷2 · Trapecio (B+b)×h÷2 · con hueco: grande − hueco.',
- 'docenas':'Malas en 1 docena (12 − buenas) × nº de docenas.',
- 'cajas':'Empieza por las cajas grandes y comprueba que con menos no llega.',
- 'máquinas':'Suma el ritmo de todas y mira cuántas veces cabe en el total.',
- 'tiempo':'El primer mes cuenta como pago 1.',
- 'ofertas':'3x2 = pagas 2 de cada 3 → precio ×2/3. 2x1 = la mitad. 4x3 → ×3/4.',
- 'comisiones':'Tasa = parte fija + porcentaje. Saca el % de la cantidad y súmale la fija.',
- 'monedas':'Encadena: pasa a la moneda intermedia y de ahí a la final. Divide y luego multiplica.',
- 'operaciones':'Mitad ÷2 · doble ×2 · tercera parte ÷3 · cuarta parte ÷4. Hazlo por pasos.',
- 'enteros':'Un signo − delante de un paréntesis cambia el signo de dentro: −(−2)=+2.',
- 'ritmo':'Cuántas veces el lento × las veces más rápido. Ej.: 6 × 1,5 = 9.',
- 'edades':'La diferencia de edad nunca cambia. Plantea padre+t = k·(hijo+t).',
- 'media':'Media = suma de todos ÷ cuántos hay.'
-};
-
-/* ===================== APP ===================== */
+/* ====== APP ====== */
 const $=s=>document.querySelector(s);
-const cfg={fam:'Todas',lvl:0,qty:20,lim:0};
-
-// build family chips
-const famNames=Object.keys(FAMILIES);
+const cfg={fam:'Todas',lvl:0,mode:'mc',qty:20,lim:0};
 const famWrap=$('#famChips');
-famNames.forEach((name,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=name;b.dataset.fam=name;if(name==='Todas')b.setAttribute('aria-pressed','true');famWrap.appendChild(b);});
-
-function wireGroup(sel,key,cast){document.querySelectorAll(sel+' .chip').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll(sel+' .chip').forEach(x=>x.removeAttribute('aria-pressed'));c.setAttribute('aria-pressed','true');cfg[key]=cast(c.dataset[key]);});});}
-wireGroup('#famChips','fam',v=>v);
-wireGroup('#lvlChips','lvl',v=>+v);
-wireGroup('#qtyChips','qty',v=>+v);
-wireGroup('#limChips','lim',v=>+v);
+Object.keys(FAM).forEach(name=>{const b=document.createElement('button');b.className='chip';b.textContent=name;b.dataset.fam=name;if(name==='Todas')b.setAttribute('aria-pressed','true');famWrap.appendChild(b);});
+function wire(sel,key,cast){document.querySelectorAll(sel+' .chip').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll(sel+' .chip').forEach(x=>x.removeAttribute('aria-pressed'));c.setAttribute('aria-pressed','true');cfg[key]=cast(c.dataset[key]);});});}
+wire('#famChips','fam',v=>v);wire('#lvlChips','lvl',v=>+v);wire('#modeChips','mode',v=>v);wire('#qtyChips','qty',v=>+v);wire('#limChips','lim',v=>+v);
 
 let S=null,raf=null;
 function show(id){['setup','play','done'].forEach(s=>$('#'+s).classList.toggle('hidden',s!==id));}
-
-function startSession(){
-  S={items:[],i:0,correct:0,streak:0,bestStreak:0,qStart:0,perFam:{},timedOut:false};
-  show('play');loadQuestion();
-}
+function startSession(){S={i:0,correct:0,streak:0,bestStreak:0,qStart:0,perFam:{},items:[]};show('play');loadQuestion();}
 
 function loadQuestion(){
-  const it=generate(FAMILIES[cfg.fam],cfg.lvl);
-  S.cur=it;S.timedOut=false;
+  const it=generate(FAM[cfg.fam],cfg.lvl);S.cur=it;S.locked=false;
   $('#famTag').innerHTML='<b>'+it.fam.charAt(0).toUpperCase()+it.fam.slice(1)+'</b>';
   $('#prog').textContent=(S.i+1)+' / '+cfg.qty;
   $('#question').textContent=it.q;
-  $('#fb').className='fb';$('#fb').innerHTML='';
-  $('#nextBtn').classList.remove('show');
-  const inp=$('#ans');inp.value='';inp.disabled=false;
-  inp.inputMode=(it.expectText||it.frac)?'text':'decimal';
-  inp.placeholder=it.expectText?'Escribe el mes':(it.frac?'Ej. 3/4':'Tu respuesta');
-  $('#checkBtn').disabled=false;
-  inp.focus();
-  S.qStart=performance.now();
-  S.streakRef=$('#streak');
+  $('#fb').className='fb';$('#fb').innerHTML='';$('#nextBtn').classList.remove('show');
+  const mc=cfg.mode==='mc';
+  $('#writeBox').classList.toggle('hidden',mc);$('#mcBox').classList.toggle('hidden',!mc);
+  if(mc){
+    const opts=makeOptions(it);const box=$('#mcBox');box.innerHTML='';
+    opts.forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o.label;b.dataset.ok=o.ok;b.onclick=()=>answerMC(o.ok,b);box.appendChild(b);});
+  }else{
+    const inp=$('#ans');inp.value='';inp.disabled=false;$('#checkBtn').disabled=false;
+    inp.inputMode=it.kind==='text'?'text':'decimal';
+    inp.placeholder=it.kind==='text'?'Escribe el mes':it.kind==='frac'?'Ej: 5/4 o 1,25':'Tu respuesta';
+    inp.focus();
+  }
   $('#streak').textContent=S.streak>1?('🔥 '+S.streak):'';
-  startTimer();
+  S.qStart=performance.now();startTimer();
 }
+function startTimer(){cancelAnimationFrame(raf);const lim=cfg.lim*1000;
+  const tick=()=>{const el=performance.now()-S.qStart;$('#timer').textContent=fmt(Math.round(el/100)/10);const fill=$('#barFill');
+    if(lim>0){const rem=Math.max(0,1-el/lim);fill.style.width=(rem*100)+'%';fill.style.background=rem>.5?'var(--ok)':rem>.25?'var(--speed)':'var(--no)';if(el>=lim){timeUp();return;}}
+    else{const p=Math.min(1,el/30000);fill.style.width='100%';fill.style.background=p<.5?'var(--ok)':p<.8?'var(--speed)':'var(--no)';}
+    raf=requestAnimationFrame(tick);};raf=requestAnimationFrame(tick);}
+function timeUp(){cancelAnimationFrame(raf);if(S.locked)return;resolve(false,true,null);}
+function isCorrect(it,raw){if(it.kind==='text')return norm(raw)===norm(it.a);const v=parseVal(raw);return isFinite(v)&&Math.abs(v-it.a)<0.01;}
+function submitWrite(){if(S.locked)return;resolve(isCorrect(S.cur,$('#ans').value),false,null);}
+function answerMC(ok,btn){if(S.locked)return;resolve(ok,false,btn);}
 
-function startTimer(){
-  cancelAnimationFrame(raf);
-  const lim=cfg.lim*1000;
-  const tick=()=>{
-    const el=performance.now()-S.qStart;
-    const secs=el/1000;
-    $('#timer').textContent=fmt(Math.round(secs*10)/10).replace(/(\d)$/,'$1');
-    const fill=$('#barFill');
-    if(lim>0){
-      const rem=Math.max(0,1-el/lim);
-      fill.style.width=(rem*100)+'%';
-      fill.style.background=rem>.5?'var(--ok)':rem>.25?'var(--speed)':'var(--no)';
-      if(el>=lim){timeUp();return;}
-    }else{
-      // sin límite: barra sube como "presión" suave hasta 30s
-      const p=Math.min(1,el/30000);
-      fill.style.width='100%';
-      fill.style.background=p<.5?'var(--ok)':p<.8?'var(--speed)':'var(--no)';
-    }
-    raf=requestAnimationFrame(tick);
-  };
-  raf=requestAnimationFrame(tick);
-}
-
-function timeUp(){
-  cancelAnimationFrame(raf);
-  S.timedOut=true;
-  submit(true);
-}
-
-function isCorrect(it,raw){
-  if(it.expectText)return norm(raw)===norm(it.a);
-  const v=it.frac?parseFrac(raw):parseNum(raw);return isFinite(v)&&Math.abs(v-it.a)<0.01;
-}
-
-function submit(forced){
-  cancelAnimationFrame(raf);
-  const it=S.cur;const raw=$('#ans').value;
-  const elapsed=performance.now()-S.qStart;
-  const ok=!forced&&!S.timedOut&&isCorrect(it,raw);
-  // registrar
-  if(!S.perFam[it.fam])S.perFam[it.fam]={n:0,ok:0,ms:0};
-  const pf=S.perFam[it.fam];pf.n++;pf.ms+=elapsed;if(ok)pf.ok++;
-  if(ok){S.correct++;S.streak++;S.bestStreak=Math.max(S.bestStreak,S.streak);}else{S.streak=0;}
+function resolve(ok,timedout,btn){
+  cancelAnimationFrame(raf);S.locked=true;const it=S.cur;const elapsed=performance.now()-S.qStart;
+  if(!S.perFam[it.fam])S.perFam[it.fam]={n:0,ok:0,ms:0};const pf=S.perFam[it.fam];pf.n++;pf.ms+=elapsed;if(ok)pf.ok++;
+  if(ok){S.correct++;S.streak++;S.bestStreak=Math.max(S.bestStreak,S.streak);}else S.streak=0;
   S.items.push({fam:it.fam,ok,ms:elapsed});
-  // feedback
+  if(cfg.mode==='mc'){
+    document.querySelectorAll('#mcBox .opt').forEach(b=>{b.disabled=true;if(b.dataset.ok==='true')b.classList.add('correct');});
+    if(btn&&!ok)btn.classList.add('wrong');
+  }else{$('#ans').disabled=true;$('#checkBtn').disabled=true;}
   const fb=$('#fb');fb.className='fb show '+(ok?'ok':'no');
-  const solDisp=it.expectText?it.a:(it.frac?it.sol:fmt(Math.round(it.a*100)/100));
-  fb.innerHTML=
-    '<div class="head">'+(ok?'✓ ¡Correcto!':(S.timedOut?'⏱ Se acabó el tiempo':'✗ Casi'))+'</div>'+
-    (ok?'':'<div class="sol">Respuesta: <b>'+solDisp+'</b></div>')+
-    '<div class="trick">💡 '+(TRICKS[it.fam]||'')+'</div>';
-  $('#ans').disabled=true;$('#checkBtn').disabled=true;
+  const solDisp=it.aDisp?it.aDisp:(it.kind==='text'?it.a:fmt(r2(it.a)));
+  fb.innerHTML='<div class="head">'+(ok?'✓ ¡Correcto!':(timedout?'⏱ Se acabó el tiempo':'✗ Casi'))+'</div>'+(ok?'':'<div class="sol">Respuesta: <b>'+solDisp+'</b></div>')+'<div class="trick">💡 '+(TRICKS[it.fam]||'')+'</div>';
   $('#streak').textContent=S.streak>1?('🔥 '+S.streak):'';
   $('#nextBtn').classList.add('show');$('#nextBtn').focus();
 }
-
-function nextQuestion(){
-  S.i++;
-  if(S.i>=cfg.qty){finish();return;}
-  loadQuestion();
+function nextQuestion(){S.i++;if(S.i>=cfg.qty){finish();return;}loadQuestion();}
+function finish(){cancelAnimationFrame(raf);show('done');
+  const totalMs=S.items.reduce((a,b)=>a+b.ms,0);const avgMs=totalMs/S.items.length;
+  $('#dScore').textContent=S.correct;$('#dOf').textContent=' / '+cfg.qty;$('#dPct').textContent=Math.round(100*S.correct/cfg.qty)+'% de aciertos';
+  $('#dTotal').textContent=fmt(Math.round(totalMs/100)/10)+' s';$('#dAvg').textContent=fmt(Math.round(avgMs/100)/10)+' s';$('#dStreak').textContent=S.bestStreak;
+  const key='pf_'+cfg.fam+'_'+cfg.lvl+'_'+cfg.mode;let rec='—',beaten=false;
+  try{const prev=parseFloat(localStorage.getItem(key));if(!isFinite(prev)||avgMs<prev){localStorage.setItem(key,avgMs);beaten=isFinite(prev);}rec=fmt(Math.round(parseFloat(localStorage.getItem(key))/100)/10)+' s';}catch(e){rec=fmt(Math.round(avgMs/100)/10)+' s';}
+  $('#dRec').textContent=(beaten?'🏆 ':'')+rec;
+  const bd=$('#breakdown');bd.innerHTML='';const fams=Object.entries(S.perFam).map(([f,v])=>({f,...v,avg:v.ms/v.n}));
+  const slow=fams.length>1?fams.reduce((a,b)=>b.avg>a.avg?b:a):null;const maxAvg=Math.max(...fams.map(f=>f.avg),1);
+  fams.sort((a,b)=>b.avg-a.avg).forEach(f=>{const row=document.createElement('div');row.className='frow'+(slow&&f.f===slow.f&&f.avg>3000?' slow':'');
+    row.innerHTML='<span class="fname">'+f.f.charAt(0).toUpperCase()+f.f.slice(1)+'</span><span class="fmini">'+f.ok+'/'+f.n+' · '+fmt(Math.round(f.avg/100)/10)+'s</span><span class="fbar"><i style="width:'+(f.avg/maxAvg*100)+'%"></i></span>';bd.appendChild(row);});
 }
-
-function finish(){
-  cancelAnimationFrame(raf);
-  show('done');
-  const totalMs=S.items.reduce((a,b)=>a+b.ms,0);
-  const avgMs=totalMs/S.items.length;
-  $('#dScore').textContent=S.correct;
-  $('#dOf').textContent=' / '+cfg.qty;
-  $('#dPct').textContent=Math.round(100*S.correct/cfg.qty)+'% de aciertos';
-  $('#dTotal').textContent=fmt(Math.round(totalMs/100)/10)+' s';
-  $('#dAvg').textContent=fmt(Math.round(avgMs/100)/10)+' s';
-  $('#dStreak').textContent=S.bestStreak;
-  // récord (localStorage) por familia+dificultad sobre la media
-  const key='pf_'+cfg.fam+'_'+cfg.lvl;let rec='—',beaten=false;
-  try{
-    const prev=parseFloat(localStorage.getItem(key));
-    if(!isFinite(prev)||avgMs<prev){localStorage.setItem(key,avgMs);beaten=isFinite(prev);}
-    const best=parseFloat(localStorage.getItem(key));
-    rec=fmt(Math.round(best/100)/10)+' s';
-  }catch(e){rec=fmt(Math.round(avgMs/100)/10)+' s';}
-  const recEl=$('#dRec');recEl.textContent=rec;recEl.classList.toggle('record',beaten);
-  if(beaten)recEl.textContent='🏆 '+rec;
-  // desglose
-  const bd=$('#breakdown');bd.innerHTML='';
-  const fams=Object.entries(S.perFam).map(([f,v])=>({f,...v,avg:v.ms/v.n}));
-  const slowest=fams.length>1?fams.reduce((a,b)=>b.avg>a.avg?b:a):null;
-  const maxAvg=Math.max(...fams.map(f=>f.avg),1);
-  fams.sort((a,b)=>b.avg-a.avg).forEach(f=>{
-    const row=document.createElement('div');
-    row.className='frow'+(slowest&&f.f===slowest.f&&f.avg>3000?' slow':'');
-    row.innerHTML=
-      '<span class="fname">'+f.f.charAt(0).toUpperCase()+f.f.slice(1)+'</span>'+
-      '<span class="fmini">'+f.ok+'/'+f.n+' · '+fmt(Math.round(f.avg/100)/10)+'s</span>'+
-      '<span class="fbar"><i style="width:'+(f.avg/maxAvg*100)+'%"></i></span>';
-    bd.appendChild(row);
-  });
-}
-
-/* eventos */
-$('#startBtn').onclick=startSession;
-$('#checkBtn').onclick=()=>submit(false);
-$('#nextBtn').onclick=nextQuestion;
-$('#againBtn').onclick=startSession;
-$('#homeBtn').onclick=()=>show('setup');
-$('#quitBtn').onclick=()=>{cancelAnimationFrame(raf);show('setup');};
-$('#ans').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!$('#ans').disabled)submit(false);}});
+$('#startBtn').onclick=startSession;$('#checkBtn').onclick=submitWrite;$('#nextBtn').onclick=nextQuestion;$('#againBtn').onclick=startSession;$('#homeBtn').onclick=()=>show('setup');$('#quitBtn').onclick=()=>{cancelAnimationFrame(raf);show('setup');};
+$('#ans').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!$('#ans').disabled)submitWrite();}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#nextBtn').classList.contains('show')&&document.activeElement!==$('#ans')){e.preventDefault();nextQuestion();}});
-const modal=$('#modal');
-const openModal=()=>modal.classList.add('show');
-$('#tricksBtn1').onclick=openModal;$('#tricksBtn2').onclick=openModal;
-$('#closeModal').onclick=()=>modal.classList.remove('show');
-modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+const modal=$('#modal');$('#tricksBtn1').onclick=()=>modal.classList.add('show');$('#tricksBtn2').onclick=()=>modal.classList.add('show');$('#closeModal').onclick=()=>modal.classList.remove('show');modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
 </script>
 </body>
 </html>
